@@ -1,0 +1,14 @@
+{
+	"name": "wealthy-mi",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"postinstall": "(cd client && npm i) && (cd server && npm i)",
+		"build": "cd client && npm run build",
+		"start": "cd server && node ./bin/www"
+	},
+	"engines": {
+		"node": "19.x",
+		"npm": "8.x"
+	}
+}
