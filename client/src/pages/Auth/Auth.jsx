@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logIn, signUp } from "../../actions/AuthAction";
+import { registerUser, userLogin } from "../../features/auth/authActions";
 
 export default function Auth() {
   const initialState = {
@@ -11,7 +11,7 @@ export default function Auth() {
     confirmpass: "",
   };
   const dispatch = useDispatch()
-  const loading = useSelector((state) => state.authReducer.loading);
+  const { loading } = useSelector((state) => state.auth)
   const [isSignUp, setIsSignUp] = useState(false);
   const [data, setData] = useState(initialState);
   const [confirmPass, setConfirmPass] = useState(true);
@@ -22,11 +22,22 @@ export default function Auth() {
   function handleSubmit(e) {
     e.preventDefault();
     if (isSignUp) {
-      data.password === data.confirmpass ? dispatch(signUp(data)) : setConfirmPass(false)
+      data.password === data.confirmpass ? dispatch(registerUser(data)) : setConfirmPass(false)
     } else {
-      dispatch(logIn(data))
+      dispatch(userLogin(data))
     }
   }
+  // function handleChange(e) {
+  //   setData({ ...data, [e.target.name]: e.target.value });
+  // }
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   if (isSignUp) {
+  //     data.password === data.confirmpass ? dispatch(signUp(data)) : setConfirmPass(false)
+  //   } else {
+  //     dispatch(logIn(data))
+  //   }
+  // }
   function resetForm() {
     setConfirmPass(true);
     setData({
