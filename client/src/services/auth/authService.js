@@ -4,20 +4,14 @@ export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
     // baseUrl: 'https://wealthy-mi.herokuapp.com/',
-    baseUrl: 'http://127.0.0.1:3000/',
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.userToken
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`)
-        return headers
-      }
-    },
+    baseUrl: 'http://127.0.0.1:3000/'
   }),
+  // fetch calls for HTTP requests here: 
   endpoints: (build) => ({
     getDetails: build.query({
       query: () => ({
-        url: 'api/user/profile',
-        method: 'GET',
+        // url: 'user/<user_route>',
+        // method: 'GET',
       }),
     }),
   }),
