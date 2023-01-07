@@ -3,7 +3,6 @@ import BrandHeader from "./BrandHeader";
 import NavDivider from "./NavDivider";
 import { Accordion } from "react-bootstrap";
 import NavItem from "./NavItem";
-import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import { Link } from "react-router-dom";
 import sideBarContent from "./sideBarContent.json";
 
@@ -15,7 +14,20 @@ export default function Sidebar() {
 			className="navbar-nav bg-gradient-primary sidebar sidebar-dark"
 		>
 			<BrandHeader key="brandHeader" />
-			<hr className="sidebar-divider my-0" />
+			<NavDivider />
+
+			<li
+				key="Demo"
+				className="nav-item"
+			>
+				<Link
+					className="nav-link"
+					to="/app/demo"
+				>
+					<i className="fas fa-fw fa-tachometer-alt"></i>
+					<span>Link Testing : Demo</span>
+				</Link>
+			</li>
 
 			<li
 				key="Dashboard"
@@ -23,7 +35,7 @@ export default function Sidebar() {
 			>
 				<Link
 					className="nav-link"
-					path="#"
+					to="dashboard"
 				>
 					<i className="fas fa-fw fa-tachometer-alt"></i>
 					<span>Dashboard</span>
