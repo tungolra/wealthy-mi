@@ -4,8 +4,10 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import store from "./app/store";
 import Test from "./features/test/test";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import App from "./App";
+import Auth from "./features/auth/Auth";
+import ErrorHandler from "./features/error/ErrorHandler";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -19,8 +21,16 @@ root.render(
 					element={<Test />}
 				/>
 				<Route
-					path="*"
+					path="app/auth"
+					element={<Auth />}
+				/>
+				<Route
+					path="app/*"
 					element={<App />}
+				/>
+				<Route
+					path="*"
+					element={<ErrorHandler />}
 				/>
 			</Routes>
 		</BrowserRouter>

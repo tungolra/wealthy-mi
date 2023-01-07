@@ -11,7 +11,7 @@ const NavItem = (props) => {
 			<li className="nav-item">
 				<Link
 					className="nav-link"
-					path="#"
+					to="#"
 					onClick={useAccordionButton(eventKey)}
 				>
 					<i className={props.iconClass}></i>
@@ -38,7 +38,7 @@ const NavItem = (props) => {
 						{props.subNavItems.map((subNavItem) => (
 							<Link
 								className="collapse-item"
-								path={subNavItem.path}
+								to={subNavItem.path}
 							>
 								<span>{subNavItem.title}</span>
 							</Link>
