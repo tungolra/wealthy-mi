@@ -1,17 +1,17 @@
 import React from "react";
-import Auth from "./pages/Auth/Auth";
-import { Routes, Route } from "react-router-dom";
 import "./styles/css/styles.css";
+import "./styles/css/afterStyle.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import Sidebar from "./components/sidebar/Sidebar";
+
 function App() {
 	return (
-		<div className="App">
-			<p>App</p>
-			<Routes>
-				<Route
-					path="/test/auth"
-					element={<Auth />}
-				/>
-			</Routes>
+		<div id="wrapper">
+			<Sidebar></Sidebar>
+			<div
+				id="content-wrapper"
+				className="d-flex flex-column"
+			></div>
 		</div>
 	);
 }
