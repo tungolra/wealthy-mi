@@ -1,4 +1,4 @@
-// var createError = require("http-errors");
+var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 // var cookieParser = require("cookie-parser");
@@ -19,6 +19,7 @@ app.use(express.json());
 
 app.use("/users", require("./routes/users"));
 app.use("/auth", require("./routes/auth"));
+app.use("/expenses", require("./routes/expenses"))
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -36,9 +37,9 @@ app.use(express.static(path.join(__dirname, "../client/build/")));
 
 
 // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-// 	next(createError(404));
-// });
+app.use(function (req, res, next) {
+	next(createError(404));
+});
 
 app.listen(port, function () {
 	console.log(`Express app running on port ${port}`);
@@ -49,4 +50,5 @@ app.get("/*", function (req, res) {
 	root: path.join(__dirname, "../client/build/"),
   });
 });
-module.exports = app;
+
+// module.exports = app;
