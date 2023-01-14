@@ -36,10 +36,10 @@ const ExpenseSchema = mongoose.Schema(
   }
 );
 
-ExpenseSchema.CategorySchema.pre("save", function (next) {
-  this.vendor =
-    this.vendor.trim()[0].toUpperCase() + this.vendor.slice(1).toLowerCase();
-  next();
-});
+// ExpenseSchema.CategorySchema.pre("save", function (next) {
+//   this.vendor =
+//     this.vendor.trim()[0].toUpperCase() + this.vendor.slice(1).toLowerCase();
+//   next();
+// });
 
 module.exports = mongoose.model("Expense", ExpenseSchema);
