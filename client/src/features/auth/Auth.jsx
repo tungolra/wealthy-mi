@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, userLogin } from "../../features/auth/authActions";
 import { logout } from "../../features/auth/authSlice";
+import LoginCard from "./LoginCard";
+import SignUpCard from "./SignUpCard";
 
 export default function Auth() {
   const initialState = {
@@ -40,98 +42,31 @@ export default function Auth() {
       confirmpass: "",
     });
   }
+  const backGroundStyle = {
+    height: "100vh",
+    width: "100vw",
+    backgroundColor: "#4e73df",
+    backgroundImage: "linear-gradient(180deg, #4e73df 10%, #224abe 100%)",
+    backgroundSize: "cover",
+  };
 
   return (
     <>
-      <button onClick={() => dispatch(logout())}>
-        Logout
-      </button>
-
-      <form onSubmit={handleSubmit}>
-        <h3>{isSignUp ? "Register" : "Login"}</h3>
-        {isSignUp && (
-          <div>
-            <input
-              required
-              type="text"
-              placeholder="First Name"
-              name="firstname"
-              value={data.firstname}
-              onChange={handleChange}
-            />
-            <input
-              required
-              type="text"
-              placeholder="Last Name"
-              name="lastname"
-              value={data.lastname}
-              onChange={handleChange}
-            />
+      <div className="wrapper" style={backGroundStyle}>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-xl-10 col-lg-12 col-md-9">
+              <div className="card o-hidden border-0 shadow-lg my-5">
+                <div className="card-body p-0">
+                  {isSignUp
+                    ? <SignUpCard signUpHandle={setIsSignUp} />
+                    : <LoginCard signUpHandle={setIsSignUp} />}
+                </div>
+              </div>
+            </div>
           </div>
-        )}
-
-        <div>
-          <input
-            required
-            type="text"
-            placeholder="Username"
-            name="username"
-            value={data.username}
-            onChange={handleChange}
-          />
         </div>
-        <div>
-          <input
-            required
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={data.password}
-            onChange={handleChange}
-          />
-          {isSignUp && (
-            <input
-              required
-              type="password"
-              name="confirmpass"
-              placeholder="Confirm Password"
-              onChange={handleChange}
-            />
-          )}
-        </div>
-
-        <span
-          style={{
-            color: "red",
-            fontSize: "12px",
-            alignSelf: "flex-end",
-            marginRight: "5px",
-            display: confirmPass ? "none" : "block",
-          }}
-        >
-          *Confirm password is not same
-        </span>
-        <div>
-          <span
-            style={{
-              fontSize: "12px",
-              cursor: "pointer",
-              textDecoration: "underline",
-            }}
-            onClick={() => {
-              resetForm();
-              setIsSignUp((prev) => !prev);
-            }}
-          >
-            {isSignUp
-              ? "Already have an account Login"
-              : "Don't have an account Sign up"}
-          </span>
-          <button type="Submit">
-            {loading ? "Loading..." : isSignUp ? "SignUp" : "Login"}
-          </button>
-        </div>
-      </form>
+      </div>
     </>
   );
 }
