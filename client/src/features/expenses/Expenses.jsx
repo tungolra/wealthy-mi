@@ -4,9 +4,10 @@ import { useDispatch } from "react-redux";
 import {
   useGetExpensesQuery,
   useCreateExpenseMutation,
+  useDeleteExpenseMutation,
 } from "../../services/api/apiSlice";
 
-function Category() {
+function AddCategory() {
   const [formData, setFormData] = useState([]);
 
   function handleSubmit() {}
@@ -23,69 +24,120 @@ function Category() {
   );
 }
 
-export default function Expenses() {
-  const dispatch = useDispatch();
-  // const [filteredExpenses, setFilteredExpenses] = useState([]);
-  const [formData, setFormData] = useState([]);
-
-  const user = localStorage.getItem("user");
-
+function ExpenseList({ userId }) {
   const {
     data: expenses,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetExpensesQuery(user);
+    isLoading, // optional conditional rendering if data is loading
+    isSuccess, // use for conditional rendering if data retrieved successfully
+    isError, //use for conditional rendering when error occurs
+    error, // use to render error
+    refetch,
+  } = useGetExpensesQuery(userId);
 
-  console.log(expenses);
+  const [deleteExpense] = useDeleteExpenseMutation()
 
-  function handleSubmit(e) {
+  function handleDelete(id) {
+    deleteExpense(id)
+  }
+
+  return (
+    <div className="expenses-container">
+      <h2>Expenses</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Vendor</th>
+            <th>Category</th>
+            <th>Transaction Date</th>
+            <th>Amount</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {expenses?.map((expense, idx) => (
+            <tr key={idx}>
+              <th>{expense?.vendor}</th>
+              <th>{expense?.category?.name}</th>
+              {/* temp date slice without using Moment */}
+              <th> {expense?.posted.slice(0, 10)} </th>
+              <th>${expense?.value}.00</th>
+              <th>
+                <button onClick={() => handleDelete(expense._id)}>
+                  Delete
+                </button>
+              </th>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button onClick={refetch}> Refetch Expenses </button>
+    </div>
+  );
+}
+
+export default function Expenses() {
+  const userId = localStorage.getItem("user");
+  // const [filteredExpenses, setFilteredExpenses] = useState([]);
+  const initialState = {
+    vendor: "",
+    category: "",
+    posted: "",
+    value: "",
+  };
+  const [formData, setFormData] = useState(initialState);
+  const [createExpense] = useCreateExpenseMutation();
+
+  function handleChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+  async function handleSubmit(e) {
     e.preventDefault();
-    // dispatch(useCreateExpenseMutation(formData, user))
+    try {
+      await createExpense(formData);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <>
       <h1>Expense Page</h1>
-      <Category />
-      <div className="expenses-container">
-        <h2>Expenses</h2>
-        {/* refactor into separate component */}
-        <table>
-          <thead>
-            <tr>
-              <th>Vendor</th>
-              <th>Category</th>
-              <th>Transaction Date</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            {expenses?.map((expense) => (
-              <tr>
-                <th>{expense?.vendor}</th>
-                <th>{expense?.category.name}</th>
-                {/* temp date slice without using Moment */}
-                <th> {expense?.posted.slice(0, 10)} </th>
-                <th>${expense?.value}.00</th>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
+      <AddCategory />
+      <ExpenseList userId={userId} />
+      {/* refactor to place in CreateExpense component */}
       <div className="expense-form">
         <h2>Add an Expense</h2>
-        <form onClick={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <label>Vendor</label>
-          <input type="text" />
+          <input
+            name="vendor"
+            type="text"
+            value={formData.vendor}
+            onChange={handleChange}
+          />
           <label>Category</label>
-          <input type="text" />
+          <input
+            name="category"
+            type="text"
+            value={formData.category}
+            onChange={handleChange}
+          />
           <label>Transaction Date</label>
-          <input type="text" />
+          <input
+            name="posted"
+            type="date"
+            value={formData.posted}
+            onChange={handleChange}
+          />
           <label>Amount</label>
-          <input type="text" />
+          <input
+            name="value"
+            type="number"
+            min="0"
+            step="0.01"
+            value={formData.value}
+            onChange={handleChange}
+          />
           <button type="submit">Submit</button>
         </form>
       </div>

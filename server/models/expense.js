@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema
 
-const CategorySchema = mongoose.Schema({
+const CategorySchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -17,13 +17,13 @@ CategorySchema.pre("save", function (next) {
   next();
 });
 
-const ExpenseSchema = mongoose.Schema(
+const ExpenseSchema = new Schema(
   {
     vendor: {
       type: String,
       required: true,
     },
-    category: { type: CategorySchema },
+    category: String,
     posted: { type: Date, default: Date.now },
     value: {
       type: Number,
@@ -38,10 +38,10 @@ const ExpenseSchema = mongoose.Schema(
   }
 );
 
-// ExpenseSchema.CategorySchema.pre("save", function (next) {
-//   this.vendor =
-//     this.vendor.trim()[0].toUpperCase() + this.vendor.slice(1).toLowerCase();
-//   next();
-// });
+ExpenseSchema.pre("save", function (next) {
+  this.vendor =
+    this.vendor.trim()[0].toUpperCase() + this.vendor.slice(1).toLowerCase();
+  next();
+});
 
 module.exports = mongoose.model("Expense", ExpenseSchema);

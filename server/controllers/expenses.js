@@ -1,10 +1,12 @@
 const Expense = require("../models/expense");
-const User = require("../models/user");
 
 async function createExpense(req, res) {
   try {
-    // const expense = Expense.create(req.body);
-    res.status(200).json("ran");
+    const newExpense = new Expense(req.body)
+    newExpense.user = req.params.id
+    console.log(newExpense)
+    await newExpense.save()
+    res.status(200).json(newExpense);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -27,7 +29,15 @@ async function getAllExpenses(req, res) {
   }
 }
 
-async function deleteExpense(req, res) {}
+async function deleteExpense(req, res) {
+  const expenseId = req.params.id
+  try {
+    await Expense.findByIdAndDelete(expenseId)
+    res.status(200).json("Expense deleted")
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
 
 module.exports = {
   create: createExpense,
