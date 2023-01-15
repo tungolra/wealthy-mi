@@ -86,7 +86,7 @@ export default function Expenses() {
   };
   const [formData, setFormData] = useState(initialState);
   const [createExpense] = useCreateExpenseMutation();
-
+console.log(formData)
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }

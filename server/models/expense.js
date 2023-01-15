@@ -27,7 +27,7 @@ const ExpenseSchema = new Schema(
     posted: { type: Date, default: Date.now },
     value: {
       type: Number,
-      min: 0,
+      min: 0.01,
       required: true,
     },
     user: {type: Schema.Types.ObjectId}
