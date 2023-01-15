@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser, userLogin } from "../../features/auth/authActions";
 import { logout } from "../../features/auth/authSlice";
 import LoginCard from "./LoginCard";
+import DemoLoginCard from "./DemoLoginCard"
 import SignUpCard from "./SignUpCard";
 
 export default function Auth() {
@@ -58,9 +59,29 @@ export default function Auth() {
             <div className="col-xl-10 col-lg-12 col-md-9">
               <div className="card o-hidden border-0 shadow-lg my-5">
                 <div className="card-body p-0">
-                  {isSignUp
-                    ? <SignUpCard signUpHandle={setIsSignUp} />
-                    : <LoginCard signUpHandle={setIsSignUp} />}
+                  {isSignUp ? (
+                    <SignUpCard
+                      data={data}
+                      handleChange={handleChange}
+                      handleSubmit={handleSubmit}
+                      resetForm={resetForm}
+                      isSignUp={isSignUp}
+                      setIsSignUp={setIsSignUp}
+                      loading={loading}
+                    />
+                  ) : (
+                    <DemoLoginCard
+                    //<LoginCard
+                      data={data}
+                      setData={setData}
+                      handleChange={handleChange}
+                      handleSubmit={handleSubmit}
+                      resetForm={resetForm}
+                      isSignUp={isSignUp}
+                      setIsSignUp={setIsSignUp}
+                      loading={loading}
+                    />
+                  )}
                 </div>
               </div>
             </div>

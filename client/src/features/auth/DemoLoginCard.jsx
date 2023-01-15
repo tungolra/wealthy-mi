@@ -1,8 +1,22 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { userLogin } from "./authActions";
 
 import { Link } from "react-router-dom";
 
-const LoginCard = (props) => {
+export default function DemoLoginCard(props) {
+  const dispatch = useDispatch();
+
+  const autoLogin = {
+    username: "demo@mail.com",
+    password: "12345",
+  };
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(userLogin(autoLogin));
+  }
+
   return (
     <div className="row">
       <div className="col-lg-6 d-none d-lg-block bg-login-image"></div>
@@ -11,16 +25,14 @@ const LoginCard = (props) => {
           <div className="text-center">
             <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
           </div>
-          <form className="user" onSubmit={props.handleSubmit}>
+          <form className="user" onSubmit={handleSubmit}>
             <div className="form-group">
               <input
                 className="form-control form-control-user"
                 type="text"
                 id="username"
                 name="username"
-                value={props.data.username}
-                onChange={props.handleChange}
-                placeholder="Username"
+                value={autoLogin.username}
               ></input>
             </div>
             <div className="form-group">
@@ -30,9 +42,7 @@ const LoginCard = (props) => {
                 type="password"
                 id="password"
                 name="password"
-                value={props.data.password}
-                onChange={props.handleChange}
-                placeholder="Password"
+                value={autoLogin.password}
               ></input>
             </div>
             <div className="text-center mb-5">
@@ -60,6 +70,4 @@ const LoginCard = (props) => {
       </div>
     </div>
   );
-};
-
-export default LoginCard;
+}

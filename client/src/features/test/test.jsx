@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Auth from "../auth/Auth";
-import Expenses from "../expenses/Expense"
+import Expenses from "../expenses/Expenses"
 
 const TestRoutes = () => {
   return (

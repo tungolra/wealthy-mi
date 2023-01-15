@@ -20,7 +20,7 @@ const UserSchema = new Schema(
         type: String,
         required: true,
       },
-      expenses: [{type: Schema.Types.ObjectId}]
+      // expenses: [{type: Schema.Types.ObjectId}]
     },
     {
       timestamps: true,
