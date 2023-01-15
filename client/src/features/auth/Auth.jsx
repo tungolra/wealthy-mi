@@ -70,8 +70,8 @@ export default function Auth() {
                       loading={loading}
                     />
                   ) : (
-                    <DemoLoginCard
-                    /* <LoginCard */
+                    // <DemoLoginCard
+                    <LoginCard
                       data={data}
                       setData={setData}
                       handleChange={handleChange}

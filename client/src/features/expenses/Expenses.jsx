@@ -1,7 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useGetExpensesQuery } from "../../services/api/apiSlice";
+import { useDispatch } from "react-redux";
+import {
+  useGetExpensesQuery,
+  useCreateExpenseMutation,
+} from "../../services/api/apiSlice";
 
 function Category() {
   const [formData, setFormData] = useState([]);
@@ -20,8 +23,9 @@ function Category() {
   );
 }
 
-export default function Expense() {
-  // const [expenses, setExpenses] = useState([]);
+export default function Expenses() {
+  const dispatch = useDispatch();
+  // const [filteredExpenses, setFilteredExpenses] = useState([]);
   const [formData, setFormData] = useState([]);
 
   const user = localStorage.getItem("user");
@@ -34,16 +38,12 @@ export default function Expense() {
     error,
   } = useGetExpensesQuery(user);
 
-  // console.log(expenses);
-  // expenses?.map((element) => {
-  //   console.log(element.vendor);
-  //   console.log(element.posted);
-  // });
+  console.log(expenses);
 
-  //placeholder date for formatting view
-  const d = new Date(Date.now());
-
-  function handleSubmit() {}
+  function handleSubmit(e) {
+    e.preventDefault();
+    // dispatch(useCreateExpenseMutation(formData, user))
+  }
 
   return (
     <>
@@ -51,6 +51,7 @@ export default function Expense() {
       <Category />
       <div className="expenses-container">
         <h2>Expenses</h2>
+        {/* refactor into separate component */}
         <table>
           <thead>
             <tr>
@@ -61,20 +62,15 @@ export default function Expense() {
             </tr>
           </thead>
           <tbody>
-            {expenses?.map((expense) => {
+            {expenses?.map((expense) => (
               <tr>
-                <th>
-                  <em> {expense?.vendor} </em>
-                </th>
-                <th>
-                  <em>{expense?.category.name}</em>
-                </th>
-                <th> {expense?.posted} </th>
-                <th>
-                  <em>{expense?.value}</em>
-                </th>
-              </tr>;
-            })}
+                <th>{expense?.vendor}</th>
+                <th>{expense?.category.name}</th>
+                {/* temp date slice without using Moment */}
+                <th> {expense?.posted.slice(0, 10)} </th>
+                <th>${expense?.value}.00</th>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
