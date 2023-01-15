@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const expenseCtrl = require('../controllers/expense')
+const expenseCtrl = require('../controllers/expenses')
 
 router.post("/create", expenseCtrl.create)
 router.get("/", expenseCtrl.index)

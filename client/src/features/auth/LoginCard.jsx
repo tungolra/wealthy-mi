@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser, userLogin } from "../../features/auth/authActions";
+import React from "react";
+
 import { Link } from "react-router-dom";
 
 const LoginCard = (props) => {

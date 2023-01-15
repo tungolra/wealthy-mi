@@ -33,7 +33,6 @@ async function registerUser(req, res) {
   }
 }
 async function loginUser(req, res) {
-  console.log(req.body)
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username: username });

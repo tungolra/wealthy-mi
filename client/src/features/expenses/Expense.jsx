@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import { useGetExpensesQuery } from "../api/apiSlice";
 
 function Category() {
   const [formData, setFormData] = useState([]);
@@ -21,6 +23,14 @@ function Category() {
 export default function Expense() {
   const [expenses, setExpenses] = useState([]);
   const [formData, setFormData] = useState([]);
+
+  // const {
+  //   data: expenses,
+  //   isLoading,
+  //   isSuccess,
+  //   isError,
+  //   error,
+  // } = useGetExpensesQuery();
 
   //placeholder date for formatting view
   const d = new Date(Date.now());
