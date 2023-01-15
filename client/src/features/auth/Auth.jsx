@@ -18,6 +18,7 @@ export default function Auth() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [data, setData] = useState(initialState);
   const [confirmPass, setConfirmPass] = useState(true);
+  console.log(isSignUp)
 
   function handleChange(e) {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -58,9 +59,27 @@ export default function Auth() {
             <div className="col-xl-10 col-lg-12 col-md-9">
               <div className="card o-hidden border-0 shadow-lg my-5">
                 <div className="card-body p-0">
-                  {isSignUp
-                    ? <SignUpCard signUpHandle={setIsSignUp} />
-                    : <LoginCard signUpHandle={setIsSignUp} />}
+                  {isSignUp ? (
+                    <SignUpCard
+                      data={data}
+                      handleChange={handleChange}
+                      handleSubmit={handleSubmit}
+                      resetForm={resetForm}
+                      isSignUp={isSignUp}
+                      setIsSignUp={setIsSignUp}
+                      loading={loading}
+                    />
+                  ) : (
+                    <LoginCard
+                      data={data}
+                      handleChange={handleChange}
+                      handleSubmit={handleSubmit}
+                      resetForm={resetForm}
+                      isSignUp={isSignUp}
+                      setIsSignUp={setIsSignUp}
+                      loading={loading}
+                    />
+                  )}
                 </div>
               </div>
             </div>
