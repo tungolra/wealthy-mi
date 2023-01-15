@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useGetExpensesQuery } from "../api/apiSlice";
+import { useGetExpensesQuery } from "../../services/api/apiSlice";
 
 function Category() {
   const [formData, setFormData] = useState([]);
@@ -21,16 +21,24 @@ function Category() {
 }
 
 export default function Expense() {
-  const [expenses, setExpenses] = useState([]);
+  // const [expenses, setExpenses] = useState([]);
   const [formData, setFormData] = useState([]);
 
-  // const {
-  //   data: expenses,
-  //   isLoading,
-  //   isSuccess,
-  //   isError,
-  //   error,
-  // } = useGetExpensesQuery();
+  const user = localStorage.getItem("user");
+
+  const {
+    data: expenses,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetExpensesQuery(user);
+
+  // console.log(expenses);
+  // expenses?.map((element) => {
+  //   console.log(element.vendor);
+  //   console.log(element.posted);
+  // });
 
   //placeholder date for formatting view
   const d = new Date(Date.now());
@@ -53,20 +61,20 @@ export default function Expense() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              {/* map start */}
-              <th>
-                <em> Vendor_name </em>
-              </th>
-              <th>
-                <em>category_name</em>
-              </th>
-              <th> {d.toString()} </th>
-              <th>
-                <em>$50.00</em>
-              </th>
-              {/* map end */}
-            </tr>
+            {expenses?.map((expense) => {
+              <tr>
+                <th>
+                  <em> {expense?.vendor} </em>
+                </th>
+                <th>
+                  <em>{expense?.category.name}</em>
+                </th>
+                <th> {expense?.posted} </th>
+                <th>
+                  <em>{expense?.value}</em>
+                </th>
+              </tr>;
+            })}
           </tbody>
         </table>
       </div>

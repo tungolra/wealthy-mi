@@ -11,13 +11,15 @@ async function createExpense(req, res) {
 }
 
 async function getAllExpenses(req, res) {
-  const userId = req.user._id;
-  const user = User.find({ _id: userId });
+  const userId = req.params.id
+  const allExpenses = await Expense.find({})
+  
   try {
     const expenses = [];
-    user.expenses.forEach((e) => {
-      let expense = Expense.findOne({ _id: e });
-      expenses.push(expense);
+    allExpenses.forEach((expense) => {
+      if (expense.user.toString() === userId){
+        expenses.push(expense)
+      }
     });
     res.status(200).json(expenses);
   } catch (error) {

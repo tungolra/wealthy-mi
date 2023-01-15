@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema
 
 const CategorySchema = mongoose.Schema({
   name: {
@@ -29,6 +30,7 @@ const ExpenseSchema = mongoose.Schema(
       min: 0,
       required: true,
     },
+    user: {type: Schema.Types.ObjectId}
     
   },
   {

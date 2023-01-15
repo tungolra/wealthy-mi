@@ -9,7 +9,7 @@ export const apiSlice = createApi({
   }),
   endpoints: (builder) => ({
     getExpenses: builder.query({
-      query: () => "/expenses",
+      query: (id) => `/expenses/${id}`,
     }),
     // createExpense
     // updateExpense
