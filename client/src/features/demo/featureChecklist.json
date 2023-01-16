@@ -11,6 +11,14 @@
         "finished": "true"
       },
       {
+        "name": "Persist User data between browser refreshes",
+        "finished": "false"
+      },
+      {
+        "name": "Update sidebar with demo content for ui",
+        "finished": "true"
+      },
+      {
         "name": "Client Chart and Tabular View for Expense Data",
         "finished": ""
       },

@@ -10,8 +10,6 @@ import ConstructionAlert from "./components/ConstructionAlert";
 function App() {
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth);
-  console.log(currentUser);
-  console.log(!currentUser.userInfo);
   if (!currentUser.userInfo) {
     return <Navigate to="/app/auth" />;
   }
