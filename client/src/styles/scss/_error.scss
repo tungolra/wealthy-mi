@@ -17,7 +17,7 @@
 		}
 	}
 }
-.error:after {
+.error-after {
 	content: attr(data-text);
 	position: absolute;
 	left: 2px;
@@ -38,7 +38,7 @@
 		}
 	}
 }
-.error:before {
+.error-before {
 	content: attr(data-text);
 	position: absolute;
 	left: -2px;
