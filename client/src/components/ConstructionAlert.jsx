@@ -23,8 +23,8 @@ function ConstructionAlert(props) {
   useEffect(() => {
     if (show) {
       setTimeout(() => {
-        setShow(false);
         showRef.current = false;
+        setShow(false);
       }, 2000);
     }
   }, [showRef.current]);

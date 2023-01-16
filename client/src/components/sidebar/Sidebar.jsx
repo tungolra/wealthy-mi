@@ -43,7 +43,7 @@ export default function Sidebar(props) {
         <a
           className="nav-link"
           href="#"
-          onClick={() => props.conAlert()}
+          onClick={() => props.conAlert(true)}
         >
           <i className="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
@@ -54,7 +54,7 @@ export default function Sidebar(props) {
         key="Expenses"
         className="nav-item"
       >
-        <a className="nav-link" href="#" onClick={() => props.conAlert()}>
+        <a className="nav-link" href="#" onClick={() => props.conAlert(true)}>
           <i className="fas fa-layer-group"></i>
           <span>My Expenses</span>
         </a>
@@ -63,7 +63,7 @@ export default function Sidebar(props) {
         key="Goals"
         className="nav-item"
       >
-        <a className="nav-link" href="#" onClick={() => props.conAlert()}>
+        <a className="nav-link" href="#" onClick={() => props.conAlert(true)}>
           <i className="fas fa-bullseye"></i>
           <span>My Goals</span>
         </a>

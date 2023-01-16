@@ -2,13 +2,12 @@ import React from "react";
 import "./styles/css/styles.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Sidebar from "./components/sidebar/Sidebar";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Demo from "./features/demo/Demo";
 import ConstructionAlert from "./components/ConstructionAlert";
 
 function App() {
-  const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth);
   if (!currentUser.userInfo) {
     return <Navigate to="/app/auth" />;

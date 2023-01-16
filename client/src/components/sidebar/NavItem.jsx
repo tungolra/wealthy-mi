@@ -53,7 +53,7 @@ const NavItem = (props) => {
                   key={"navitem-" + index}
                   className="collapse-item"
                   href="#"
-                  onClick={() => props.conAlert()}
+                  onClick={() => props.conAlert(true)}
                 >
                   <span>{subNavItem.title}</span>
                 </a>
