@@ -1,12 +1,11 @@
-import React from "react";
+import React, {} from "react";
 import { useDispatch } from "react-redux";
 import { userLogin } from "./authActions";
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function DemoLoginCard(props) {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const autoLogin = {
     username: "demo@mail.com",
     password: "12345",
@@ -15,6 +14,7 @@ export default function DemoLoginCard(props) {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(userLogin(autoLogin));
+    navigate("/app");
   }
 
   return (
@@ -28,22 +28,26 @@ export default function DemoLoginCard(props) {
           <form className="user" onSubmit={handleSubmit}>
             <div className="form-group">
               <input
+                readOnly
                 className="form-control form-control-user"
                 type="text"
                 id="username"
                 name="username"
                 value={autoLogin.username}
-              ></input>
+              >
+              </input>
             </div>
             <div className="form-group">
               <input
+                readOnly
                 className="form-control form-control-user"
                 required
                 type="password"
                 id="password"
                 name="password"
                 value={autoLogin.password}
-              ></input>
+              >
+              </input>
             </div>
             <div className="text-center mb-5">
               <button
