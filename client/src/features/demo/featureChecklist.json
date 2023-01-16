@@ -1,0 +1,93 @@
+[
+  {
+    "number": "3",
+    "features": [
+      {
+        "name": "Having Fun",
+        "finished": "true"
+      },
+      {
+        "name": "Learning Lots",
+        "finished": "true"
+      },
+      {
+        "name": "Client Chart and Tabular View for Expense Data",
+        "finished": ""
+      },
+
+      {
+        "name": "Expense Tracking Server Functionality",
+        "finished": ""
+      },
+
+      {
+        "name": "Refactor Client Expense Data operations for Consistency Between Client and Server",
+        "finished": ""
+      },
+
+      {
+        "name": "User Expense Data CRUD functionality",
+        "finished": "true"
+      },
+
+      {
+        "name": "User Expense Data CRUD functionality",
+        "finished": "true"
+      }
+    ]
+  },
+  {
+    "number": "2",
+    "features": [
+      {
+        "name": "Client Authentication UI Check",
+        "finished": "true"
+      },
+
+      {
+        "name": "Client Authentication State Management",
+        "finished": "true"
+      },
+
+      {
+        "name": "Server Deployment registers multiple servers launched",
+        "finished": "true"
+      },
+
+      {
+        "name": "Production Database and data pipeline",
+        "finished": "true"
+      }
+    ]
+  },
+  {
+    "number": "1",
+    "features": [
+      {
+        "name": "Core UI Components for Client View",
+        "finished": "true"
+      },
+
+      {
+        "name": "JWT Authentication ",
+        "finished": "true"
+      },
+      {
+        "name": "Integrate and Debug SB-UI Admin Theme",
+        "finished": "true"
+      },
+      {
+        "name": "Integrate Bootstrap in React with Custom Components",
+        "finished": "true"
+      },
+      {
+        "name": "Set Up Remote and Dev Workflow",
+        "finished": "true"
+      },
+      {
+        "name": "KickOff",
+        "finished": "true"
+      }
+    ]
+  }
+]
