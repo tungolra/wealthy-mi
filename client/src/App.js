@@ -14,7 +14,6 @@ function App() {
 
   const getConAlertHandle = (alertHandle) => {
     showConAlert = alertHandle;
-    showConAlert(true);
   };
 
   return (
