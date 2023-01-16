@@ -2,14 +2,18 @@ import React from "react";
 import "./styles/css/styles.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Sidebar from "./components/sidebar/Sidebar";
-import PageContent from "./components/page-content/PageContent";
-import { Route, Routes } from "react-router-dom";
-import Auth from "./features/auth/Auth";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Demo from "./features/demo/Demo";
-import ErrorHandler from "./features/error/ErrorHandler";
 import ConstructionAlert from "./components/ConstructionAlert";
 
 function App() {
+  const userAuth = useSelector((state) => state.auth);
+
+  if (!userAuth.userInfo) {
+    return <Navigate to="/app/auth" />;
+  }
+
   let showConAlert = () => {};
 
   const getConAlertHandle = (alertHandle) => {
