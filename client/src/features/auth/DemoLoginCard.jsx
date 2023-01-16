@@ -14,7 +14,7 @@ export default function DemoLoginCard(props) {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(userLogin(autoLogin));
-    navigate("/app");
+    navigate("/app/demo");
   }
 
   return (
