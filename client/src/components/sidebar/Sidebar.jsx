@@ -4,9 +4,29 @@ import NavDivider from "./NavDivider";
 import { Accordion } from "react-bootstrap";
 import NavItem from "./NavItem";
 import { Link } from "react-router-dom";
-import sideBarContent from "./sideBarContent.json";
 
 export default function Sidebar(props) {
+  const sampleDropDown = {
+    "title": "Sample Drop Down",
+    "path": "#!",
+    "iconClass": "fas fa-fw fa-cog",
+    "subTitle": "Sample Pages",
+    "subNavItems": [
+      {
+        "title": "Sample Page 1",
+        "path": "",
+      },
+      {
+        "title": "Sample Page 2",
+        "path": "",
+      },
+    ],
+    "conAlert": props.conAlert,
+  };
+  /*
+    To add construciton alert to any feature, add the following
+    onClick = {()=> props.conAlert()}
+  */
   return (
     <Accordion
       id="accordionSidebar"
@@ -15,50 +35,54 @@ export default function Sidebar(props) {
     >
       <BrandHeader key="brandHeader" />
       <NavDivider />
-      <button
-        onClick={() => {
-          console.log("button was clicked");
-          props.conAlert();
-        }}
-      >
-        Con Alert Button
-      </button>
-
-      <li
-        key="Demo"
-        className="nav-item"
-      >
-        <Link
-          className="nav-link"
-          to="/app/demo"
-        >
-          <i className="fas fa-fw fa-tachometer-alt"></i>
-          <span>Link Testing : Demo</span>
-        </Link>
-      </li>
 
       <li
         key="Dashboard"
         className="nav-item"
       >
-        <Link
+        <a
           className="nav-link"
-          to="dashboard"
+          href="#"
+          onClick={() => props.conAlert()}
         >
           <i className="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
-        </Link>
+        </a>
+      </li>
+
+      <li
+        key="Expenses"
+        className="nav-item"
+      >
+        <a className="nav-link" href="#" onClick={() => props.conAlert()}>
+          <i className="fas fa-layer-group"></i>
+          <span>My Expenses</span>
+        </a>
+      </li>
+      <li
+        key="Goals"
+        className="nav-item"
+      >
+        <a className="nav-link" href="#" onClick={() => props.conAlert()}>
+          <i className="fas fa-bullseye"></i>
+          <span>My Goals</span>
+        </a>
       </li>
       <NavDivider />
 
       <div className="sidebar-heading">Demo Information</div>
 
-      {
-        // Array.from(sideBarContent).map()
-        sideBarContent.map((navItem, index) => (
-          <NavItem {...{ ...navItem, eventKey: index }}></NavItem>
-        ))
-      }
+      <li
+        key="DemInfo"
+        className="nav-item"
+      >
+        <Link to="demo" className="nav-link">
+          <i className="fas fa-fw fa-book"></i>
+          <span>Demo Logs</span>
+        </Link>
+      </li>
+
+      <NavItem {...sampleDropDown} />
     </Accordion>
   );
 }
