@@ -181,7 +181,9 @@ const Demo = () => {
                   </a>, and stay tuned for more!
                 </p>
               </div>
-              {FeatureList.map((sprint) => <Sprint sprint={sprint} />)}
+              {FeatureList.map((sprint, index) => (
+                <Sprint key={"sprint-" + index} sprint={sprint} />
+              ))}
               <div className="d-flex justify-content-center">
                 <hr className="divider text-white w-75" />
               </div>

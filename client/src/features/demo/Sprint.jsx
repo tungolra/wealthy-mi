@@ -1,10 +1,13 @@
 import React from "react";
 
 function SprintList({ sprint, children }) {
-  const features = sprint.features.map((feature) => {
+  const features = sprint.features.map((feature, index) => {
     var isFinished = feature.finished === "true";
     return (
-      <div className="d-flex flex-row justify-content-start">
+      <div
+        key={"feature" + index}
+        className="d-flex flex-row justify-content-start"
+      >
         <div>
           {isFinished
             ? <i className="fa-regular fa-square-check"></i>
