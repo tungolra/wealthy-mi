@@ -4,9 +4,6 @@ import NavDivider from "./NavDivider";
 import { Accordion } from "react-bootstrap";
 import NavItem from "./NavItem";
 import { Link } from "react-router-dom";
-import sideBarContent from "./sideBarContent.json";
-
-import { useAccordionButton } from "react-bootstrap/AccordionButton";
 
 export default function Sidebar(props) {
   const sampleDropDown = {
