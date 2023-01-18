@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 mongoose.set('strictQuery', false) // per DeprecationWarning, set strictQuery to false
 
 mongoose.connect(
-  // process.env.DATABASE_URL
-  process.env.MONGO_DB
+  process.env.DATABASE_URL
+  // process.env.MONGO_DB
   );
 
 const db = mongoose.connection;

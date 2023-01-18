@@ -31,7 +31,6 @@ function ExpenseList({ userId }) {
     isSuccess, // use for conditional rendering if data retrieved successfully
     isError, //use for conditional rendering when error occurs
     error, // use to render error
-    refetch,
   } = useGetExpensesQuery(userId);
 
   const [deleteExpense] = useDeleteExpenseMutation()
@@ -60,7 +59,7 @@ function ExpenseList({ userId }) {
               <th>{expense?.category?.name}</th>
               {/* temp date slice without using Moment */}
               <th> {expense?.posted.slice(0, 10)} </th>
-              <th>${expense?.value}.00</th>
+              <th>${expense?.value}</th>
               <th>
                 <button onClick={() => handleDelete(expense._id)}>
                   Delete
@@ -70,7 +69,6 @@ function ExpenseList({ userId }) {
           ))}
         </tbody>
       </table>
-      <button onClick={refetch}> Refetch Expenses </button>
     </div>
   );
 }
