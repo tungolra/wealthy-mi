@@ -56,7 +56,7 @@ function ExpenseList({ userId }) {
           {expenses?.map((expense, idx) => (
             <tr key={idx}>
               <th>{expense?.vendor}</th>
-              <th>{expense?.category?.name}</th>
+              <th>{expense?.category}</th>
               {/* temp date slice without using Moment */}
               <th> {expense?.posted.slice(0, 10)} </th>
               <th>${expense?.value}</th>
@@ -84,7 +84,6 @@ export default function Expenses() {
   };
   const [formData, setFormData] = useState(initialState);
   const [createExpense] = useCreateExpenseMutation();
-console.log(formData)
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }

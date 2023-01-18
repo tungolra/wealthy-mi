@@ -1,12 +1,24 @@
 const Expense = require("../models/expense");
+const Category = require("../models/category");
 
 async function createExpense(req, res) {
-  const { value } = req.body;
+  const { category } = req.body;
   try {
+    // build new Expense object
     const newExpense = new Expense(req.body);
-    newExpense.value = value;
     newExpense.user = req.params.id;
-    console.log(newExpense);
+
+    // check if category exists
+    const categoryExists = await Category.findOne({ name: category });
+    if (categoryExists) {
+      // only add ID of new expense to category.expenses array
+      categoryExists.expenses.push(newExpense._id);
+    } else {
+      // create new category and add expense ID to array
+      const newCategory = new Category({ name: category });
+      newCategory.expenses.push(newExpense._id);
+      newCategory.save()
+    }
     await newExpense.save();
     res.status(200).json(newExpense);
   } catch (error) {
