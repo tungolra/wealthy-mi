@@ -86,7 +86,7 @@ export default function Expenses() {
     isError, //use for conditional rendering when error occurs
     error, // use to render error
   } = useGetCategoriesQuery(userId);
-  console.log("categoriess", categories);
+
 
   const initialState = {
     vendor: "",
