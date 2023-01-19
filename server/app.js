@@ -16,6 +16,7 @@ app.use(express.json());
 app.use("/users", require("./routes/users"));
 app.use("/auth", require("./routes/auth"));
 app.use("/expenses", require("./routes/expenses"));
+app.use("/categories", require("./routes/categories"));
 
 // error handler
 app.use(function (err, req, res, next) {

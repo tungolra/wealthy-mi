@@ -5,7 +5,9 @@ import {
   useGetExpensesQuery,
   useCreateExpenseMutation,
   useDeleteExpenseMutation,
-} from "../../services/api/apiSlice";
+} from "../../services/api/expenseSlice";
+
+import { useGetCategoriesQuery } from "../../services/api/categorySlice";
 
 function AddCategory() {
   const [formData, setFormData] = useState([]);
@@ -31,13 +33,12 @@ function ExpenseList({ userId }) {
     isSuccess, // use for conditional rendering if data retrieved successfully
     isError, //use for conditional rendering when error occurs
     error, // use to render error
-    refetch,
   } = useGetExpensesQuery(userId);
 
-  const [deleteExpense] = useDeleteExpenseMutation()
+  const [deleteExpense] = useDeleteExpenseMutation();
 
   function handleDelete(id) {
-    deleteExpense(id)
+    deleteExpense(id);
   }
 
   return (
@@ -57,10 +58,10 @@ function ExpenseList({ userId }) {
           {expenses?.map((expense, idx) => (
             <tr key={idx}>
               <th>{expense?.vendor}</th>
-              <th>{expense?.category?.name}</th>
+              <th>{expense?.category}</th>
               {/* temp date slice without using Moment */}
               <th> {expense?.posted.slice(0, 10)} </th>
-              <th>${expense?.value}.00</th>
+              <th>${expense?.value}</th>
               <th>
                 <button onClick={() => handleDelete(expense._id)}>
                   Delete
@@ -70,7 +71,6 @@ function ExpenseList({ userId }) {
           ))}
         </tbody>
       </table>
-      <button onClick={refetch}> Refetch Expenses </button>
     </div>
   );
 }
@@ -78,6 +78,16 @@ function ExpenseList({ userId }) {
 export default function Expenses() {
   const userId = localStorage.getItem("user");
   // const [filteredExpenses, setFilteredExpenses] = useState([]);
+
+  const {
+    data: categories,
+    isLoading, // optional conditional rendering if data is loading
+    isSuccess, // use for conditional rendering if data retrieved successfully
+    isError, //use for conditional rendering when error occurs
+    error, // use to render error
+  } = useGetCategoriesQuery(userId);
+  console.log("categoriess", categories);
+
   const initialState = {
     vendor: "",
     category: "",
@@ -86,7 +96,6 @@ export default function Expenses() {
   };
   const [formData, setFormData] = useState(initialState);
   const [createExpense] = useCreateExpenseMutation();
-console.log(formData)
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
@@ -101,6 +110,13 @@ console.log(formData)
 
   return (
     <>
+    {/* For rendering only */}
+      {/* <ul>
+        <label htmlFor="">Categories</label>
+        {categories.map((c) => (
+          <li>{c}</li>
+        ))}
+      </ul> */}
       <h1>Expense Page</h1>
       <AddCategory />
       <ExpenseList userId={userId} />
