@@ -2,7 +2,9 @@
 
 #### Wealthy You
 
-![]()
+
+![](https://raw.githubusercontent.com/ssjkhan/wealthy-mi/main/images/Jan18-Capture1.gif)
+
 
 Wealthy Mi help users develop fundamental financial literacy skills and create a
 plan that works for them. Track your expenses, manage your time, and achieve
