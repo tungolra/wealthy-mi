@@ -28,6 +28,7 @@ export default function DemoLoginCard(props) {
           <form className="user" onSubmit={handleSubmit}>
             <div className="form-group">
               <input
+                readOnly
                 className="form-control form-control-user"
                 type="text"
                 id="username"
@@ -37,6 +38,7 @@ export default function DemoLoginCard(props) {
             </div>
             <div className="form-group">
               <input
+                readOnly
                 className="form-control form-control-user"
                 required
                 type="password"

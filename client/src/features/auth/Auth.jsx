@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, userLogin } from "../../features/auth/authActions";
 import { logout } from "../../features/auth/authSlice";
+import { Navigate } from "react-router-dom";
 import LoginCard from "./LoginCard";
 import DemoLoginCard from "./DemoLoginCard"
 import SignUpCard from "./SignUpCard";
 
 export default function Auth() {
+  const currentUser = useSelector((state) => state.auth);
+
   const initialState = {
     firstname: "",
     lastname: "",
@@ -86,8 +89,7 @@ export default function Auth() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        )}
     </>
   );
 }
