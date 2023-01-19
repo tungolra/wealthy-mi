@@ -78,8 +78,8 @@ export default function Auth() {
                           />
                         )
                         : (
-                          <DemoLoginCard
-                            //<LoginCard
+                          //<DemoLoginCard
+                            <LoginCard
                             data={data}
                             setData={setData}
                             handleChange={handleChange}

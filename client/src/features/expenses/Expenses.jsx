@@ -5,9 +5,9 @@ import {
   useGetExpensesQuery,
   useCreateExpenseMutation,
   useDeleteExpenseMutation,
-} from "../../services/api/expenseSlice";
+} from "../api/expenseSlice";
 
-import { useGetCategoriesQuery } from "../../services/api/categorySlice";
+import { useGetCategoriesQuery } from "../api/categorySlice";
 
 function AddCategory() {
   const [formData, setFormData] = useState([]);
@@ -86,7 +86,6 @@ export default function Expenses() {
     isError, //use for conditional rendering when error occurs
     error, // use to render error
   } = useGetCategoriesQuery(userId);
-  console.log("categoriess", categories);
 
   const initialState = {
     vendor: "",
@@ -110,7 +109,7 @@ export default function Expenses() {
 
   return (
     <>
-    {/* For rendering only */}
+      {/* For rendering only */}
       {/* <ul>
         <label htmlFor="">Categories</label>
         {categories.map((c) => (
