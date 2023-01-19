@@ -1,14 +1,17 @@
 {
-	"name": "wealthy-mi",
-	"version": "0.0.0",
-	"private": true,
-	"scripts": {
-		"postinstall": "(cd client && npm i) && (cd server && npm i)",
-		"build": "cd client && npm run build",
-		"start": "npm run build && cd server && node ./bin/www"
-	},
-	"engines": {
-		"node": "19.x",
-		"npm": "8.x"
-	}
+  "name": "wealthy-mi",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "(cd client && npm i) && (cd server && npm i)",
+    "build": "cd client && npm run build",
+    "start": "npm run build && cd server && npm start"
+  },
+  "engines": {
+    "node": "19.x",
+    "npm": "8.x"
+  },
+  "dependencies": {
+    "bootstrap": "4.6.x"
+  }
 }
