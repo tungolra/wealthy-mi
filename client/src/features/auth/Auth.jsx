@@ -4,7 +4,7 @@ import { registerUser, userLogin } from "../../features/auth/authActions";
 import { logout } from "../../features/auth/authSlice";
 import { Navigate } from "react-router-dom";
 import LoginCard from "./LoginCard";
-import DemoLoginCard from "./DemoLoginCard"
+import DemoLoginCard from "./DemoLoginCard";
 import SignUpCard from "./SignUpCard";
 
 export default function Auth() {
@@ -56,35 +56,42 @@ export default function Auth() {
 
   return (
     <>
-      <div className="wrapper" style={backGroundStyle}>
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-xl-10 col-lg-12 col-md-9">
-              <div className="card o-hidden border-0 shadow-lg my-5">
-                <div className="card-body p-0">
-                  {isSignUp ? (
-                    <SignUpCard
-                      data={data}
-                      handleChange={handleChange}
-                      handleSubmit={handleSubmit}
-                      resetForm={resetForm}
-                      isSignUp={isSignUp}
-                      setIsSignUp={setIsSignUp}
-                      loading={loading}
-                    />
-                  ) : (
-                    //<DemoLoginCard
-                    <LoginCard
-                      data={data}
-                      setData={setData}
-                      handleChange={handleChange}
-                      handleSubmit={handleSubmit}
-                      resetForm={resetForm}
-                      isSignUp={isSignUp}
-                      setIsSignUp={setIsSignUp}
-                      loading={loading}
-                    />
-                  )}
+      {currentUser.userInfo
+        ? <Navigate to="/app/demo" />
+        : (
+          <div className="wrapper" style={backGroundStyle}>
+            <div className="container">
+              <div className="row justify-content-center">
+                <div className="col-xl-10 col-lg-12 col-md-9">
+                  <div className="card o-hidden border-0 shadow-lg my-5">
+                    <div className="card-body p-0">
+                      {isSignUp
+                        ? (
+                          <SignUpCard
+                            data={data}
+                            handleChange={handleChange}
+                            handleSubmit={handleSubmit}
+                            resetForm={resetForm}
+                            isSignUp={isSignUp}
+                            setIsSignUp={setIsSignUp}
+                            loading={loading}
+                          />
+                        )
+                        : (
+                          <DemoLoginCard
+                            //<LoginCard
+                            data={data}
+                            setData={setData}
+                            handleChange={handleChange}
+                            handleSubmit={handleSubmit}
+                            resetForm={resetForm}
+                            isSignUp={isSignUp}
+                            setIsSignUp={setIsSignUp}
+                            loading={loading}
+                          />
+                        )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
