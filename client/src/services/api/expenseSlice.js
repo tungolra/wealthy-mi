@@ -2,14 +2,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // https://blog.openreplay.com/fetching-data-in-redux-using-rtk-query/
 const userId = localStorage.getItem("user");
 
-export const apiSlice = createApi({
-  reducerPath: "api",
+export const expenseSlice = createApi({
+  reducerPath: "expense",
   // all requests will have URLs starting with localhost or site
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3001",
     // baseUrl: "https://wealthy-mi.herokuapp.com/"
   }),
-  tagTypes: ["Expense"],
+  tagTypes: ["Category"],
   endpoints: (builder) => ({
     getExpenses: builder.query({
       query: (id) => `/expenses/${id}`,
@@ -32,12 +32,18 @@ export const apiSlice = createApi({
       invalidatesTags: ["Expense"],
     }),
     // updateExpense
-    // deleteExpense
   }),
+  // tagTypes: ["Category"],
+  // endpoints: (builder) => ({
+  //   getCategories: builder.query({
+  //     query: (id) => `/categories/${id}`,
+  //     providesTags: ["Category"],
+  //   }),
+  // }),
 });
 
 export const {
   useGetExpensesQuery,
   useCreateExpenseMutation,
   useDeleteExpenseMutation,
-} = apiSlice;
+} = expenseSlice;

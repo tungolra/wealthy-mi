@@ -3,10 +3,11 @@ const Category = require("../models/category");
 
 async function createExpense(req, res) {
   const { category } = req.body;
+  const userId = req.params.id
   try {
     // build new Expense object
     const newExpense = new Expense(req.body);
-    newExpense.user = req.params.id;
+    newExpense.user = userId;
 
     // check if category exists
     const categoryExists = await Category.findOne({ name: category });
@@ -17,6 +18,7 @@ async function createExpense(req, res) {
       // create new category and add expense ID to array
       const newCategory = new Category({ name: category });
       newCategory.expenses.push(newExpense._id);
+      newCategory.user = userId
       newCategory.save()
     }
     await newExpense.save();

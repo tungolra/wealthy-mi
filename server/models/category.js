@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const CategorySchema = new Schema({
   name: String,
   expenses: { type: [Schema.Types.ObjectId] },
+  user: { type: Schema.Types.ObjectId },
 });
 
 // format category name: "caTegory" => "Category"
