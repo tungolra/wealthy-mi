@@ -24,16 +24,8 @@ function App() {
       <ConstructionAlert onMount={getConAlertHandle} />
       <Sidebar conAlert={() => showConAlert(true)} />
       <Routes>
-        <Route
-          path="demo"
-          element={<Demo />}
-        >
-        </Route>
-        <Route
-          path="*"
-          ErrorHandling
-        >
-        </Route>
+        <Route path="demo" element={<Demo />}></Route>
+        <Route path="*" ErrorHandling></Route>
       </Routes>
     </div>
   );
