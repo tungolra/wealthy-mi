@@ -6,6 +6,7 @@ async function getCategories(req, res) {
   try {
     const docs = await Category.find({ user: { $in: userId } });
     docs.forEach((doc) => categoryNames.push(doc.name));
+    categoryNames.sort()
     res.status(200).json(categoryNames);
   } catch (error) {
     res.status(500).json(error);
