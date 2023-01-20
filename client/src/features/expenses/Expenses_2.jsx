@@ -1,30 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import {
   useGetExpensesQuery,
   useCreateExpenseMutation,
   useDeleteExpenseMutation,
 } from "../api/expenseSlice";
-
 import { useGetCategoriesQuery } from "../api/categorySlice";
-
-function AddCategory() {
-  const [formData, setFormData] = useState([]);
-
-  function handleSubmit() {}
-
-  return (
-    <div className="category-form">
-      <h2>Add a Category</h2>
-      <form onClick={handleSubmit}>
-        <label>Category Name</label>
-        <input type="text" />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  );
-}
 
 function ExpenseList({ userId }) {
   const {
@@ -34,8 +15,9 @@ function ExpenseList({ userId }) {
     isError, //use for conditional rendering when error occurs
     error, // use to render error
   } = useGetExpensesQuery(userId);
-
   const [deleteExpense] = useDeleteExpenseMutation();
+
+  function sortList(type) {}
 
   function handleDelete(id) {
     deleteExpense(id);
@@ -47,6 +29,7 @@ function ExpenseList({ userId }) {
       <table>
         <thead>
           <tr>
+            <th>Edit</th>
             <th>Vendor</th>
             <th>Category</th>
             <th>Transaction Date</th>
@@ -57,9 +40,11 @@ function ExpenseList({ userId }) {
         <tbody>
           {expenses?.map((expense, idx) => (
             <tr key={idx}>
+              <th>
+                <button> √</button>
+              </th>
               <th>{expense?.vendor}</th>
               <th>{expense?.category}</th>
-              {/* temp date slice without using Moment */}
               <th> {expense?.posted.slice(0, 10)} </th>
               <th>${expense?.value}</th>
               <th>
@@ -75,18 +60,7 @@ function ExpenseList({ userId }) {
   );
 }
 
-export default function Expenses() {
-  const userId = localStorage.getItem("user");
-  // const [filteredExpenses, setFilteredExpenses] = useState([]);
-
-  const {
-    data: categories,
-    isLoading, // optional conditional rendering if data is loading
-    isSuccess, // use for conditional rendering if data retrieved successfully
-    isError, //use for conditional rendering when error occurs
-    error, // use to render error
-  } = useGetCategoriesQuery(userId);
-
+function AddExpense(props) {
   const initialState = {
     vendor: "",
     category: "",
@@ -109,19 +83,8 @@ export default function Expenses() {
 
   return (
     <>
-      {/* For rendering only */}
-      {/* <ul>
-        <label htmlFor="">Categories</label>
-        {categories.map((c) => (
-          <li>{c}</li>
-        ))}
-      </ul> */}
-      <h1>Expense Page</h1>
-      <AddCategory />
-      <ExpenseList userId={userId} />
-      {/* refactor to place in CreateExpense component */}
+      <h2>Add an Expense</h2>
       <div className="expense-form">
-        <h2>Add an Expense</h2>
         <form onSubmit={handleSubmit}>
           <label>Vendor</label>
           <input
@@ -132,11 +95,24 @@ export default function Expenses() {
           />
           <label>Category</label>
           <input
+            list="categories"
             name="category"
             type="text"
             value={formData.category}
             onChange={handleChange}
           />
+          <datalist name="category" id="categories">
+            {props.categories?.map((c) => (
+              <option
+                name="category"
+                type="text"
+                value={formData.category}
+                onChange={handleChange}
+              >
+                {c}
+              </option>
+            ))}
+          </datalist>
           <label>Transaction Date</label>
           <input
             name="posted"
@@ -156,6 +132,34 @@ export default function Expenses() {
           <button type="submit">Submit</button>
         </form>
       </div>
+    </>
+  );
+}
+
+export default function Expenses() {
+  const userId = localStorage.getItem("user");
+  // const [filteredExpenses, setFilteredExpenses] = useState([]);
+
+  const {
+    data: categories,
+    isLoading, // optional conditional rendering if data is loading
+    isSuccess, // use for conditional rendering if data retrieved successfully
+    isError, //use for conditional rendering when error occurs
+    error, // use to render error
+  } = useGetCategoriesQuery(userId);
+
+  return (
+    <>
+      {/* For rendering only */}
+      {/* <ul>
+        <label htmlFor="">Categories</label>
+        {categories.map((c) => (
+          <li>{c}</li>
+        ))}
+      </ul> */}
+      <h1>Expense Page</h1>
+      <ExpenseList userId={userId} />
+      <AddExpense userId={userId} categories={categories} />
     </>
   );
 }
