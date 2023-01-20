@@ -53,7 +53,7 @@ function ExpenseForm() {
             <div className="row">
               <input
                 className="form-control col"
-                placeHolder="vendor"
+                placeholder="vendor"
                 name="vendor"
                 type="text"
                 value={formData.vendor}

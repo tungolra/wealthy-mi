@@ -2,6 +2,7 @@ import {
   useDeleteExpenseMutation,
   useGetExpensesQuery,
 } from "../api/expenseSlice";
+import DataTable from "react-data-table-component";
 
 function ExpenseList({ userId }) {
   const {
@@ -18,9 +19,39 @@ function ExpenseList({ userId }) {
     deleteExpense(id);
   }
 
+  const columns = [
+    {
+      "name": "Merchant",
+      selector: (row) => row.vendor,
+      sortable: true,
+    },
+    {
+      "name": "Category",
+      selector: (row) => row.category,
+      sortable: true,
+    },
+    {
+      "name": "Date",
+      selector: (row) => row.posted.slice(0, 10),
+      sortable: true,
+    },
+    {
+      "name": "Amount",
+      selector: (row) => row.value,
+      sortable: true,
+    },
+    {
+      "name": "",
+      cell: (row) => {
+        return <button onClick={() => handleDelete(row._id)}>Remove</button>;
+      },
+    },
+  ];
+
   return (
     <div className="expenses-container">
       <h2>Expenses</h2>
+      <DataTable columns={columns} data={expenses} />
       <table>
         <thead>
           <tr>
