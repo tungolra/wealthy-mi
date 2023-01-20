@@ -6,7 +6,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Demo from "./features/demo/Demo";
 import ConstructionAlert from "./components/ConstructionAlert";
-import Expense from "./features/expenses/Expenses";
+import Expenses from "./features/expenses/Expenses";
 
 function App() {
   const currentUser = useSelector((state) => state.auth);
@@ -26,7 +26,7 @@ function App() {
       <Sidebar conAlert={() => showConAlert(true)} />
       <Routes>
         <Route path="demo" element={<Demo />}></Route>
-        <Route path="expense" element={<Expense />}></Route>
+        <Route path="expense" element={<Expenses />}></Route>
         <Route path="*" ErrorHandling></Route>
       </Routes>
     </div>
