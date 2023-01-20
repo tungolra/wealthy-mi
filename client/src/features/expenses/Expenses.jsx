@@ -29,6 +29,7 @@ function ExpenseList({ userId }) {
       <table>
         <thead>
           <tr>
+            <th>Edit</th>
             <th>Vendor</th>
             <th>Category</th>
             <th>Transaction Date</th>
@@ -39,6 +40,9 @@ function ExpenseList({ userId }) {
         <tbody>
           {expenses?.map((expense, idx) => (
             <tr key={idx}>
+              <th>
+                <button> √</button>
+              </th>
               <th>{expense?.vendor}</th>
               <th>{expense?.category}</th>
               <th> {expense?.posted.slice(0, 10)} </th>

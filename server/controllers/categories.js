@@ -13,6 +13,7 @@ async function getCategories(req, res) {
   }
 }
 
+
 module.exports = {
   index: getCategories,
 };
