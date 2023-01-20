@@ -5,33 +5,49 @@ import PageContent from "../../components/page-content/PageContent";
 
 function AddCategory() {
   const [formData, setFormData] = useState([]);
-  const [openCategory, setOpenCategory] = useState(false);
+  const [open, setOpen] = useState(false);
 
   function handleSubmit() {}
   const addCategoryBtn = (
     <>
       <a
         href="#"
-        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-        onClick={() => setOpenCategory(!openCategory)}
+        className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+        onClick={() => setOpen(!open)}
       >
-        <i class="fa-solid fa-paperclip text-white-50"></i> Add Category
+        <i className="fa-solid fa-paperclip text-white-50"></i> Add Category
       </a>
     </>
   );
   return (
     <>
       <PageContent>
-        <PageHeader title="" actions={addCategoryBtn}></PageHeader>
-        <Collapse in={openCategory}>
-          <div className="category-form">
-            <h2>Add a Category</h2>
-            <form onClick={handleSubmit}>
-              <label>Category Name</label>
-              <input type="text" />
-              <button type="submit">Submit</button>
-            </form>
+        <div className="d-sm-flex align-items-center justify-content-between mb-1">
+          <h1 className="h3 mb-0 text-gray-800">
+            {open ? "Add an Expense Category" : ""}
+          </h1>
+          <div className="">
+            {addCategoryBtn}
           </div>
+        </div>
+        <Collapse in={open}>
+          <form onClick={handleSubmit}>
+            <div className=" form-group container mb-4">
+              <div className="row">
+                <input
+                  type="text"
+                  className="form-control col"
+                  placeholder="Category Name"
+                />
+                <button
+                  type="submit"
+                  className="btn btn-dark btn-sm mx-1 col-auto"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
         </Collapse>
       </PageContent>
     </>
