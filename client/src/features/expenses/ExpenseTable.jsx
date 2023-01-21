@@ -1,10 +1,13 @@
+import { useState } from "react";
 import {
   useDeleteExpenseMutation,
   useGetExpensesQuery,
 } from "../api/expenseSlice";
+import EditExpenseForm from "./EditExpenseForm";
 import DataTable from "react-data-table-component";
 
 function ExpenseList({ userId }) {
+  const [openEdit, setOpenEdit] = useState(false);
   const {
     data: expenses,
     isLoading, // optional conditional rendering if data is loading
@@ -21,12 +24,12 @@ function ExpenseList({ userId }) {
 
   const columns = [
     {
-      "name": "Merchant",
+      name: "Merchant",
       selector: (row) => row.vendor,
       sortable: true,
     },
     {
-      "name": "Category",
+      name: "Category",
       selector: (row) => row.category,
       sortable: true,
     },
@@ -36,14 +39,34 @@ function ExpenseList({ userId }) {
       sortable: true,
     },
     {
-      "name": "Amount",
-      selector: (row) => row.value,
+      "name": "",
+      name: "Amount",
+      selector: (row) => `$${row.value}`,
       sortable: true,
     },
     {
-      "name": "",
+      name: "",
       cell: (row) => {
         return <button onClick={() => handleDelete(row._id)}>Remove</button>;
+      },
+    },
+    {
+      name: "",
+      cell: (row) => {
+        return (
+          <>
+            <button onClick={() => setOpenEdit(!openEdit)}>Edit</button>
+            {openEdit
+              ? (
+                <EditExpenseForm
+                  expense={row}
+                  setOpenEdit={setOpenEdit}
+                  openEdit={openEdit}
+                />
+              )
+              : null}
+          </>
+        );
       },
     },
   ];
@@ -52,7 +75,8 @@ function ExpenseList({ userId }) {
     <div className="expenses-container">
       <h2>Expenses</h2>
       <DataTable columns={columns} data={expenses} />
-      <table>
+      {
+        /* <table>
         <thead>
           <tr>
             <th>Vendor</th>
@@ -60,6 +84,7 @@ function ExpenseList({ userId }) {
             <th>Transaction Date</th>
             <th>Amount</th>
             <th>Delete</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -67,7 +92,6 @@ function ExpenseList({ userId }) {
             <tr key={idx}>
               <th>{expense?.vendor}</th>
               <th>{expense?.category}</th>
-              {/* temp date slice without using Moment */}
               <th>{expense?.posted.slice(0, 10)}</th>
               <th>${expense?.value}</th>
               <th>
@@ -75,10 +99,16 @@ function ExpenseList({ userId }) {
                   Delete
                 </button>
               </th>
+              <th>
+                <button onClick={() => setOpenEdit(!openEdit)}>Edit</button>
+              </th>
+
+              {openEdit ? <EditExpenseForm expense={expense} /> : null}
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */
+      }
     </div>
   );
 }
