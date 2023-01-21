@@ -60,7 +60,7 @@ function AddCategory() {
         <div>
           <h3>Your Categories</h3>
           <ul>
-            {categories.map((c) => (
+            {categories?.map((c) => (
               <li>{c}</li>
             ))}
           </ul>

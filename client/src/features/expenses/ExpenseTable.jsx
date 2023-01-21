@@ -5,6 +5,7 @@ import {
 } from "../api/expenseSlice";
 import EditExpenseForm from "./EditExpenseForm";
 import DataTable from "react-data-table-component";
+import CsvDownloadButton from "react-json-to-csv";
 
 function ExpenseList({ userId }) {
   const [openEdit, setOpenEdit] = useState(false);
@@ -21,6 +22,21 @@ function ExpenseList({ userId }) {
   function handleDelete(id) {
     deleteExpense(id);
   }
+  function convertToCSV() {
+    const JSONToCSV = [];
+    expenses?.forEach((e) => {
+      const { vendor, category, value, posted } = e;
+      let formatObj = {
+        Merchant: vendor,
+        Category: category,
+        Date: posted.slice(0,10),
+        Amount: value,
+      };
+      JSONToCSV.push(formatObj);
+    });
+    return JSONToCSV;
+  }
+
 
   const columns = [
     {
@@ -35,7 +51,7 @@ function ExpenseList({ userId }) {
     },
     {
       name: "Date",
-      selector: (row) => row.posted.slice(0, 10),
+      selector: (row) => row.posted?.slice(0, 10),
       sortable: true,
     },
     {
@@ -71,39 +87,8 @@ function ExpenseList({ userId }) {
   return (
     <div className="expenses-container">
       <h2>Expenses</h2>
+      <CsvDownloadButton data={convertToCSV()} />
       <DataTable columns={columns} data={expenses} />
-      {/* <table>
-        <thead>
-          <tr>
-            <th>Vendor</th>
-            <th>Category</th>
-            <th>Transaction Date</th>
-            <th>Amount</th>
-            <th>Delete</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {expenses?.map((expense, idx) => (
-            <tr key={idx}>
-              <th>{expense?.vendor}</th>
-              <th>{expense?.category}</th>
-              <th>{expense?.posted.slice(0, 10)}</th>
-              <th>${expense?.value}</th>
-              <th>
-                <button onClick={() => handleDelete(expense._id)}>
-                  Delete
-                </button>
-              </th>
-              <th>
-                <button onClick={() => setOpenEdit(!openEdit)}>Edit</button>
-              </th>
-
-              {openEdit ? <EditExpenseForm expense={expense} /> : null}
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
     </div>
   );
 }
