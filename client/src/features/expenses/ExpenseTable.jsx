@@ -4,7 +4,8 @@ import {
   useGetExpensesQuery,
 } from "../api/expenseSlice";
 import EditExpenseForm from "./EditExpenseForm";
-import DataTable from "react-data-table-component";
+import DataTable, { createTheme } from "react-data-table-component";
+import "./ExpenseTable.css";
 
 function ExpenseList({ userId }) {
   const [openEdit, setOpenEdit] = useState(false);
@@ -45,17 +46,22 @@ function ExpenseList({ userId }) {
       sortable: true,
     },
     {
-      name: "",
-      cell: (row) => {
-        return <button onClick={() => handleDelete(row._id)}>Remove</button>;
-      },
-    },
-    {
-      name: "",
+      name: "Options",
       cell: (row) => {
         return (
-          <>
-            <button onClick={() => setOpenEdit(!openEdit)}>Edit</button>
+          <div className="container justify-content-center">
+            <button
+              className="row-col btn btn-danger text-white btn-sm my-1"
+              onClick={() => handleDelete(row._id)}
+            >
+              Remove
+            </button>
+            <button
+              className="row-col btn btn-warning btn-sm my-1"
+              onClick={() => setOpenEdit(!openEdit)}
+            >
+              &nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;&nbsp;
+            </button>
             {openEdit
               ? (
                 <EditExpenseForm
@@ -65,16 +71,36 @@ function ExpenseList({ userId }) {
                 />
               )
               : null}
-          </>
+          </div>
         );
       },
     },
   ];
 
+  const customTableStyles = {
+    headCells: {
+      style: {
+        color: "var(--bs-white)",
+        fontSize: "1rem",
+        background: "var(--bs-dark)",
+        // border: "1rem var(--bs-primary) solid",
+        borderRadius: "0.5rem",
+      },
+    },
+  };
+
+  const expenseTableTheme = {
+    text: {},
+  };
+  createTheme("expenseTable", expenseTableTheme);
+
   return (
     <div className="expenses-container">
-      <h2>Expenses</h2>
-      <DataTable columns={columns} data={expenses} />
+      <DataTable
+        columns={columns}
+        data={expenses}
+        customStyles={customTableStyles}
+      />
       {
         /* <table>
         <thead>
