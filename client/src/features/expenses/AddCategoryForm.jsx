@@ -29,6 +29,8 @@ function AddCategory() {
       </a>
     </>
   );
+
+  console.log(categories);
   return (
     <>
       <PageContent>
@@ -55,16 +57,17 @@ function AddCategory() {
                 </button>
               </div>
             </div>
+            <div className="container">
+              <div className="row">
+                <ul>
+                  {!isLoading
+                    ? categories ? categories?.map((c) => <li>{c}</li>) : <></>
+                    : <></>}
+                </ul>
+              </div>
+            </div>
           </form>
         </Collapse>
-        <div>
-          <h3>Your Categories</h3>
-          <ul>
-            {categories.map((c) => (
-              <li>{c}</li>
-            ))}
-          </ul>
-        </div>
       </PageContent>
     </>
   );

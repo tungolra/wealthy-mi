@@ -47,7 +47,7 @@ function ExpenseForm() {
         <div className="">{expenseBtn}</div>
       </div>
       <Collapse in={open}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="mb-1">
           <div className="container ">
             <div className="row">
               <input
@@ -67,7 +67,7 @@ function ExpenseForm() {
                 value={formData.category}
                 onChange={handleChange}
               />
-              
+
               <input
                 className="form-control col"
                 form="form-control"
