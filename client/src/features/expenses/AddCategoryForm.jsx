@@ -87,6 +87,15 @@ function AddCategory() {
     </>
   );
 
+  const categoryColors = [
+    "primary",
+    "warning",
+    "danger",
+    "info",
+    "dark",
+    "success",
+  ];
+
   return (
     <>
       <PageContent>
@@ -110,19 +119,29 @@ function AddCategory() {
                 />
                 <button
                   type="submit"
-                  className="btn btn-dark btn-sm mx-1 col-auto"
+                  className="btn btn-success text-white btn-sm mx-1 col-auto"
                 >
                   Submit
                 </button>
               </div>
             </div>
-            <div className="container">
+            <div className="container mb-4">
               <div className="row">
-                <ul>
-                  {!isLoading
-                    ? categories ? categories?.map((c) => <li>{c}</li>) : <></>
-                    : <></>}
-                </ul>
+                {!isLoading
+                  ? categories
+                    ? categories?.map((category, index) => {
+                      var buttonColor =
+                        categoryColors[index % categoryColors.length];
+                      return (
+                        <div
+                          className={`col bg-${buttonColor} border-${buttonColor} bg-gradient border rounded text-white mx-2 my-2 py-2 d-flex justify-content-center`}
+                        >
+                          {category}
+                        </div>
+                      );
+                    })
+                    : <></>
+                  : <></>}
               </div>
             </div>
           </form>

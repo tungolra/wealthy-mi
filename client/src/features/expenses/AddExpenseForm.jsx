@@ -1,5 +1,6 @@
 import { useCreateExpenseMutation } from "../api/expenseSlice";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import PageContent from "../../components/page-content/PageContent";
 import { Collapse } from "react-bootstrap";
 import { useGetCategoriesQuery } from "../api/categorySlice";
@@ -13,7 +14,16 @@ function ExpenseForm() {
   };
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState(initialState);
+  const userId = localStorage.getItem("user");
   const [createExpense] = useCreateExpenseMutation();
+
+  const {
+    data: categories,
+    isLoading, // optional conditional rendering if data is loading
+    isSuccess, // use for conditional rendering if data retrieved successfully
+    isError, //use for conditional rendering when error occurs
+    error, // use to render error
+  } = useGetCategoriesQuery(userId);
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,7 +57,7 @@ function ExpenseForm() {
         <div className="">{expenseBtn}</div>
       </div>
       <Collapse in={open}>
-        <form onSubmit={handleSubmit} className="mb-1">
+        <form onSubmit={handleSubmit} className="mb-4">
           <div className="container ">
             <div className="row">
               <input
@@ -58,15 +68,29 @@ function ExpenseForm() {
                 value={formData.vendor}
                 onChange={handleChange}
               />
-              <input
+              <select
                 id="categories"
                 className="form-control col"
                 placeholder="category"
                 name="category"
-                type="text"
-                value={formData.category}
                 onChange={handleChange}
-              />
+              >
+                {!isLoading
+                  ? categories
+                    ? categories.map((category) => {
+                      return (
+                        <option
+                          key={"selectCat-" + category}
+                          className="bg-primary text-white border-1 rounded "
+                          value={category}
+                        >
+                          {category}
+                        </option>
+                      );
+                    })
+                    : <></>
+                  : <></>}
+              </select>
 
               <input
                 className="form-control col"
@@ -87,7 +111,7 @@ function ExpenseForm() {
                 onChange={handleChange}
               />
               <button
-                className="btn btn-dark btn-sm mx-1 col-auto"
+                className="btn btn-success text-white btn-sm mx-1 col-auto"
                 type="submit"
               >
                 Submit

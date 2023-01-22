@@ -54,10 +54,10 @@ export default function Sidebar(props) {
         key="Expenses"
         className="nav-item"
       >
-        <a className="nav-link" href="#" onClick={() => props.conAlert(true)}>
+        <Link className="nav-link" href="#" to="/app/expense">
           <i className="fas fa-layer-group"></i>
           <span>My Expenses</span>
-        </a>
+        </Link>
       </li>
       <li
         key="Goals"

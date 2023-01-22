@@ -26,41 +26,45 @@ export default function EditExpenseForm({ expense, setOpenEdit }) {
     }
   }
 
-  const tempStyling = {
-    // for visibility...
+  const EditModalStyling = {
     position: "fixed",
-    right: "0",
-    bottom: "0",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
   };
 
   return (
-    <div style={tempStyling}>
-      <form onSubmit={handleSubmit}>
+    <div
+      style={EditModalStyling}
+      className=" bg-dark border border-dark rounded-2"
+    >
+      <form onSubmit={handleSubmit} className="py-3 px-5">
         <div className="container ">
           <div className="row">
             <input
-              className="form-control col"
+              className="form-control col text-dark"
               name="vendor"
               type="text"
               value={formData.vendor}
               onChange={handleChange}
             />
             <input
-              className="form-control col"
+              className="form-control col text-dark"
               name="category"
               type="text"
               value={formData.category}
               onChange={handleChange}
             />
             <input
-              className="form-control col"
+              className="form-control col text-dark"
               form="form-control"
+              type="date"
               name="posted"
               value={formData.posted.slice(0, 10)}
               onChange={handleChange}
             />
             <input
-              className="form-control col"
+              className="form-control col text-dark"
               placeholder="amount"
               name="value"
               type="text"
@@ -69,7 +73,10 @@ export default function EditExpenseForm({ expense, setOpenEdit }) {
               value={formData.value}
               onChange={handleChange}
             />
-            <button className="btn btn-dark btn-sm mx-1 col-auto" type="submit">
+            <button
+              className="btn btn-success text-white btn-sm mx-1 col-auto"
+              type="submit"
+            >
               Submit
             </button>
           </div>

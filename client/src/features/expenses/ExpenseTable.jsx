@@ -74,13 +74,13 @@ function ExpenseList({ userId }) {
         return (
           <div className="container justify-content-center">
             <button
-              className="row-col btn btn-danger text-white btn-sm my-1"
+              className="row-col btn btn-danger text-white btn-sm my-1 mx-1 "
               onClick={() => handleDelete(row._id)}
             >
               Remove
             </button>
             <button
-              className="row-col btn btn-warning btn-sm my-1"
+              className="row-col btn btn-warning btn-sm text-white my-1 mx-1"
               onClick={() => setOpenEdit(!openEdit)}
             >
               &nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;&nbsp;
@@ -119,6 +119,12 @@ function ExpenseList({ userId }) {
 
   return (
     <div className="expenses-container">
+      <DataTable
+        pagination
+        columns={columns}
+        data={expenses}
+        customStyles={customTableStyles}
+      />
       {
         /* <table>
         <thead>
@@ -156,11 +162,6 @@ function ExpenseList({ userId }) {
       <h2>Expenses</h2>
       <CsvDownloadButton data={convertToCSV()} />
       <button onClick={refetch}>Refresh</button>
-      <DataTable
-        columns={columns}
-        data={expenses}
-        customStyles={customTableStyles}
-      />
     </div>
   );
 }
