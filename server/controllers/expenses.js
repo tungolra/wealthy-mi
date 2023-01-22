@@ -7,7 +7,7 @@ async function createExpense(req, res) {
   const userId = req.params.id;
   try {
     // check if category exists
-    categoryExists(category, userId);
+    categoryExists(titleCase(category), userId);
     // build new Expense object
     const newExpense = new Expense(req.body);
     newExpense.user = userId;
