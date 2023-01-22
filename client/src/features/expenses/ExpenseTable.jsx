@@ -38,6 +38,11 @@ function ExpenseList({ userId }) {
     });
     return JSONToCSV;
   }
+  function formatCurrency(val) {
+    const CDN = { style: "currency", currency: "CAD" };
+    const numberFormat = new Intl.NumberFormat("en-CA", CDN);
+    return numberFormat.format(val);
+  }
 
   const columns = [
     {
@@ -57,7 +62,7 @@ function ExpenseList({ userId }) {
     },
     {
       name: "Amount",
-      selector: (row) => `$${row.value}`,
+      selector: (row) => `${formatCurrency(row.value)}`,
       sortable: true,
     },
     {

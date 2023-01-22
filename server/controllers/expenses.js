@@ -4,10 +4,9 @@ const Category = require("../models/category");
 async function createExpense(req, res) {
   const { category } = req.body;
   const userId = req.params.id;
-  
   try {
     // check if category exists
-    categoryExists(category, userId)
+    categoryExists(category, userId);
     // build new Expense object
     const newExpense = new Expense(req.body);
     newExpense.user = userId;
@@ -40,7 +39,7 @@ async function editExpense(req, res) {
   const { category } = req.body;
 
   try {
-    categoryExists(category, userId)
+    categoryExists(category, userId);
     const expense = await Expense.findByIdAndUpdate(
       expenseId,
       { $set: req.body },
@@ -51,8 +50,6 @@ async function editExpense(req, res) {
     res.status(500).json(error);
   }
 }
-
-
 
 async function deleteExpense(req, res) {
   const expenseId = req.params.id;
@@ -71,7 +68,7 @@ module.exports = {
   update: editExpense,
 };
 
-// helper functions 
+// helper functions
 async function categoryExists(str, id) {
   const categoryExists = await Category.findOne({ name: str, user: id });
   if (categoryExists) {
