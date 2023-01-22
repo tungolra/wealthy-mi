@@ -2,7 +2,7 @@
 
 ### Wealthy You
 
-<!-- [Launch Website](<insert website URL>) -->
+<!-- <a target="_blank">[Launch Website](<insert website URL>)</a> -->
 
 ![](https://raw.githubusercontent.com/ssjkhan/wealthy-mi/main/images/Jan18-Capture1.gif)
 
@@ -23,14 +23,14 @@ Wealthy Mi is a personal finance application created as development exercise for
 
 ### Installation 
 1. Clone this repo <code>https://github.com/ssjkhan/wealthy-mi/tree/dev</code>
-2. <code>npm i</code> from root folder to install npm packages
-3. Create <code>.env</code> files in the <code>server</code> directory.
+2. <code>npm i</code> from root directory to install npm packages
+3. Create a <code>.env</code> file in the <code>server</code> directory.
 4. Set environment variables for: 
     - <code>DATABASE_URL</code> and use your database connection as its value
     - <code>JWT_KEY=<your_key></code> 
-5. <code>npm start</code> within <code>instant-messaging</code> directory to run React
+5. <code>npm start</code> within <code>client</code> directory to run React
 6. Run <code>nodemon</code> within <code>server</code> directory to run server
-10. Enter <code>localhost:<your_port></code> into your browser to launch the app. 
+7. Enter <code>localhost:<your_port></code> into your browser to launch the app. 
 
 
 ### Technologies
@@ -43,16 +43,16 @@ Wealthy Mi is a personal finance application created as development exercise for
 - HTML5
 - Jest
 
-<!-- ### In Progress -->
-<!-- [Keep up-to-date with our project!](<insert publicly-accessible mattermost URL >) -->
+### In Progress
+<a target="_blank"> [Keep up-to-date with our project!](https://ssjkhan-dev.cloud.mattermost.com/plugins/focalboard/team/upxt4777bjnbbksgseh6rp5sqc/shared/b36soedahfffumydnaxa7f6jyxw/v3633xjehi7gqikhgu1gkkcscec?r=kcr11b9h8i4thcnx6fr8mi514gy)</a>
 
 ### Contact
 Saad Khan 
 - [saad@ssjkhan.dev](saad@ssjkhan.dev)
-- [GitHub](https://github.com/ssjkhan)
-- [LinkedIn](https://www.linkedin.com/in/saad-khan-softwaredev/)
+- <a target="_blank">[GitHub](https://github.com/ssjkhan)</a>
+- <a target="_blank">[LinkedIn](https://www.linkedin.com/in/saad-khan-softwaredev/)</a>
 
 Ralph Tungol 
 - [rarttungol@gmail.com](rarttungol@gmail.com)
-- [GitHub](https://github.com/tungolra)
-- [LinkedIn](https://www.linkedin.com/in/ralph-tungol/)
+- <a target="_blank">[GitHub](https://github.com/tungolra)</a>
+- <a target="_blank">[LinkedIn](https://www.linkedin.com/in/ralph-tungol/)</a>
