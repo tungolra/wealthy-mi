@@ -38,6 +38,7 @@ export const categorySlice = createApi({
       }),
       invalidatesTags: ["Category"],
     }),
+    // updateCategory
   }),
 });
 
