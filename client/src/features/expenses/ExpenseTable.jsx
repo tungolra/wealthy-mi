@@ -17,6 +17,7 @@ function ExpenseList({ userId }) {
     isSuccess, // use for conditional rendering if data retrieved successfully
     isError, //use for conditional rendering when error occurs
     error, // use to render error
+    refetch,
   } = useGetExpensesQuery(userId);
 
   const [deleteExpense] = useDeleteExpenseMutation();
@@ -101,6 +102,7 @@ function ExpenseList({ userId }) {
     <div className="expenses-container">
       <h2>Expenses</h2>
       <CsvDownloadButton data={convertToCSV()} />
+      <button onClick={refetch}> Refresh </button>
       <DataTable columns={columns} data={expenses} />
     </div>
   );
