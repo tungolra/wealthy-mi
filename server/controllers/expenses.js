@@ -1,5 +1,6 @@
 const Expense = require("../models/expense");
 const Category = require("../models/category");
+const titleCase = require("../utils/titleCase");
 
 async function createExpense(req, res) {
   const { category } = req.body;
@@ -22,6 +23,7 @@ async function getAllExpenses(req, res) {
   const allExpenses = await Expense.find({});
 
   try {
+    // get user's expenses
     const expenses = [];
     allExpenses.forEach((expense) => {
       if (expense.user.toString() === userId) {
@@ -36,17 +38,25 @@ async function getAllExpenses(req, res) {
 async function editExpense(req, res) {
   const expenseId = req.params.expenseId;
   const userId = req.params.userId;
-  const { category } = req.body;
-
+  const { category, vendor, posted, value } = req.body;
   try {
-    categoryExists(category, userId);
+    // * add edge case for duplicates
+    categoryExists(titleCase(category), userId);
     const expense = await Expense.findByIdAndUpdate(
       expenseId,
-      { $set: req.body },
+      {
+        $set: {
+          category: titleCase(category),
+          vendor: titleCase(vendor),
+          posted: posted,
+          value: value,
+        },
+      },
       { new: true }
     );
     res.status(200).json(expense);
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 }

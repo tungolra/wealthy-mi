@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const titleCase = require("../utils/titleCase");
 
 const ExpenseSchema = new Schema(
   {
@@ -22,10 +23,8 @@ const ExpenseSchema = new Schema(
 );
 
 ExpenseSchema.pre("save", function (next) {
-  this.vendor =
-    this.vendor.trim()[0].toUpperCase() + this.vendor.slice(1).toLowerCase();
-  this.category =
-    this.category.trim()[0].toUpperCase() + this.category.slice(1).toLowerCase();
+  this.vendor = titleCase(this.vendor);
+  this.category = titleCase(this.category);
   next();
 });
 

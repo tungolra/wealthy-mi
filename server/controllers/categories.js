@@ -1,8 +1,10 @@
 const Category = require("../models/category");
 const Expense = require("../models/expense");
+const titleCase = require("../utils/titleCase");
 
 async function createCategory(req, res) {
   try {
+    // * add edge case for duplicates
     const newCategory = new Category(req.body);
     newCategory.user = req.params.id;
     newCategory.save();
@@ -19,7 +21,7 @@ async function editCategory(req, res) {
     // update the category
     await Category.findOneAndUpdate(
       { user: userId, name: former },
-      { $set: { name: name } },
+      { $set: { name: titleCase(name) } },
       { new: true }
     );
 
