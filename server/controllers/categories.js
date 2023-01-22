@@ -1,13 +1,13 @@
 const Category = require("../models/category");
 const Expense = require("../models/expense");
 const titleCase = require("../utils/titleCase");
+const categoryExists = require("../utils/categoryExists")
 
 async function createCategory(req, res) {
+  const { name } = req.body;
+  const userId = req.params.id;
   try {
-    // * add edge case for duplicates
-    const newCategory = new Category(req.body);
-    newCategory.user = req.params.id;
-    newCategory.save();
+    const newCategory = await categoryExists(titleCase(name), userId, Category);
     res.status(200).json(newCategory);
   } catch (error) {
     res.status(500).json(error);
@@ -16,19 +16,26 @@ async function createCategory(req, res) {
 async function editCategory(req, res) {
   const userId = req.params.id;
   const { name, former } = req.body;
+  const category = await Category.findOne({user: userId, name: titleCase(name)})
   try {
-    // * add edge case for duplicates
-    // update the category
-    await Category.findOneAndUpdate(
-      { user: userId, name: former },
-      { $set: { name: titleCase(name) } },
-      { new: true }
-    );
+    // edge case for duplicate categories
+    if (category) {
+      res.status(304).json("Category already exists");
+    } else {
+      // update the category
+      await Category.findOneAndUpdate(
+        { user: userId, name: former },
+        { $set: { name: titleCase(name) } },
+        { new: true }
+      );
+      //update category name of related expenses
+      await Expense.updateMany(
+        { category: former },
+        { category: titleCase(name) }
+      );
 
-    //update category name of related expenses
-    await Expense.updateMany({ category: former }, { category: name });
-
-    res.status(200).json("Update to category complete");
+      res.status(200).json("Category updated");
+    }
   } catch (error) {
     res.status(500).json(error);
   }

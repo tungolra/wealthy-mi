@@ -1,13 +1,14 @@
 const Expense = require("../models/expense");
 const Category = require("../models/category");
 const titleCase = require("../utils/titleCase");
+const categoryExists = require("../utils/categoryExists")
 
 async function createExpense(req, res) {
   const { category } = req.body;
   const userId = req.params.id;
   try {
     // check if category exists
-    categoryExists(titleCase(category), userId);
+    categoryExists(titleCase(category), userId, Category);
     // build new Expense object
     const newExpense = new Expense(req.body);
     newExpense.user = userId;
@@ -41,7 +42,7 @@ async function editExpense(req, res) {
   const { category, vendor, posted, value } = req.body;
   try {
     // * add edge case for duplicates
-    categoryExists(titleCase(category), userId);
+    categoryExists(titleCase(category), userId, Category);
     const expense = await Expense.findByIdAndUpdate(
       expenseId,
       {
@@ -78,14 +79,3 @@ module.exports = {
   update: editExpense,
 };
 
-// helper functions
-async function categoryExists(str, id) {
-  const categoryExists = await Category.findOne({ name: str, user: id });
-  if (categoryExists) {
-    return;
-  } else {
-    const newCategory = new Category({ name: str });
-    newCategory.user = id;
-    newCategory.save();
-  }
-}
