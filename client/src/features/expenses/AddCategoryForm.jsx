@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Collapse } from "react-bootstrap";
 import PageHeader from "../../components/page-content/PageHeader";
 import PageContent from "../../components/page-content/PageContent";
-import { useGetCategoriesQuery } from "../api/categorySlice";
+import { useGetCategoriesQuery, useDeleteCategoryMutation } from "../api/categorySlice";
 
 function AddCategory() {
   const [formData, setFormData] = useState([]);
@@ -17,7 +17,11 @@ function AddCategory() {
     error, // use to render error
   } = useGetCategoriesQuery(userId);
 
-  function handleSubmit() {}
+  const [deleteCategory] = useDeleteCategoryMutation()
+
+  function handleDeleteCategory(category) {
+    deleteCategory({category: category})
+  }
   const addCategoryBtn = (
     <>
       <a
@@ -39,7 +43,7 @@ function AddCategory() {
           <div className="">{addCategoryBtn}</div>
         </div>
         <Collapse in={open}>
-          <form onClick={handleSubmit}>
+          <form >
             <div className=" form-group container mb-4">
               <div className="row">
                 <input
@@ -60,8 +64,8 @@ function AddCategory() {
         <div>
           <h3>Your Categories</h3>
           <ul>
-            {categories.map((c) => (
-              <li>{c}</li>
+            {categories?.map((category) => (
+              <li>{category} - <button onClick={() => handleDeleteCategory(category)}>delete</button></li>
             ))}
           </ul>
         </div>
