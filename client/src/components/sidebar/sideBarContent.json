@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Demo Logs",
+    "path": "demo",
+    "iconClass": "fas fa-fw fa-book",
+    "subTitle": "",
+    "subNavItems": [
+      {
+        "title": "",
+        "path": ""
+      }
+    ]
+  },
+  {
+    "title": "Sample Drop Down",
+    "path": "#!",
+    "iconClass": "fas fa-fw fa-cog",
+    "subTitle": "Sample Pages",
+    "subNavItems": [
+      {
+        "title": "Sample Page 1",
+        "path": "sample-page-1"
+      },
+      {
+        "title": "Sample Page 2",
+        "path": "sample-page-2"
+      }
+    ]
+  },
+  {
+    "title": "UI Components",
+    "path": "#!",
+    "iconClass": "fas fa-fw fa-cog",
+    "subTitle": "Custom Components:",
+    "subNavItems": [
+      {
+        "title": "Buttons",
+        "path": "#"
+      },
+      {
+        "title": "Cards",
+        "path": "#"
+      },
+      {
+        "title": "Cards",
+        "path": "#"
+      }
+    ]
+  }
+]
