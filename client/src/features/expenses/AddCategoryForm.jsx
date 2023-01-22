@@ -1,14 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Collapse } from "react-bootstrap";
 import PageHeader from "../../components/page-content/PageHeader";
 import PageContent from "../../components/page-content/PageContent";
-import { useGetCategoriesQuery } from "../api/categorySlice";
+import {
+  useCreateCategoryMutation,
+  useDeleteCategoryMutation,
+  useEditCategoryMutation,
+  useGetCategoriesQuery,
+} from "../api/categorySlice";
+function EditCategory({ setOpenEdit, categoryName }) {
+  const [changeCategoryName, setChangeCategoryName] = useState([]);
+
+  const [editCategory] = useEditCategoryMutation();
+
+  async function updateCategory(e) {
+    e.preventDefault();
+    try {
+      editCategory({ name: changeCategoryName, former: categoryName });
+      setOpenEdit(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return (
+    <div>
+      <form onSubmit={updateCategory}>
+        <input
+          placeholder={categoryName}
+          type="text"
+          name="name"
+          value={changeCategoryName}
+          onChange={(e) => setChangeCategoryName(e.target.value)}
+        />
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  );
+}
 
 function AddCategory() {
-  const [formData, setFormData] = useState([]);
-  const [open, setOpen] = useState(false);
   const userId = localStorage.getItem("user");
-
   const {
     data: categories,
     isLoading, // optional conditional rendering if data is loading
@@ -16,8 +48,33 @@ function AddCategory() {
     isError, //use for conditional rendering when error occurs
     error, // use to render error
   } = useGetCategoriesQuery(userId);
+  const [newCategory, setNewCategory] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [editCategory, setEditCategory] = useState();
+  const [openEdit, setOpenEdit] = useState(false);
 
-  function handleSubmit() {}
+  // console.log(editableCategories)
+
+  const [deleteCategory] = useDeleteCategoryMutation();
+  const [createCategory] = useCreateCategoryMutation();
+
+  async function handleDeleteCategory(category) {
+    try {
+      await deleteCategory({ category: category });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function addCategory(e) {
+    e.preventDefault();
+    try {
+      await createCategory({ name: newCategory });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const addCategoryBtn = (
     <>
       <a
@@ -30,7 +87,6 @@ function AddCategory() {
     </>
   );
 
-  console.log(categories);
   return (
     <>
       <PageContent>
@@ -41,13 +97,16 @@ function AddCategory() {
           <div className="">{addCategoryBtn}</div>
         </div>
         <Collapse in={open}>
-          <form onClick={handleSubmit}>
+          <form onSubmit={addCategory}>
             <div className=" form-group container mb-4">
               <div className="row">
                 <input
                   type="text"
+                  name="name"
+                  value={newCategory}
                   className="form-control col"
                   placeholder="Category Name"
+                  onChange={(e) => setNewCategory(e.target.value)}
                 />
                 <button
                   type="submit"
@@ -68,6 +127,35 @@ function AddCategory() {
             </div>
           </form>
         </Collapse>
+        <div>
+          <h3>Your Categories</h3>
+          <ul>
+            {categories?.map((category) => (
+              <li>
+                {category} -
+                <button onClick={() => handleDeleteCategory(category)}>
+                  delete
+                </button>
+                <button
+                  onClick={() => {
+                    setEditCategory(category);
+                    setOpenEdit(!openEdit);
+                  }}
+                >
+                  edit
+                </button>
+              </li>
+            ))}
+          </ul>
+          {openEdit
+            ? (
+              <EditCategory
+                categoryName={editCategory}
+                setOpenEdit={setOpenEdit}
+              />
+            )
+            : null}
+        </div>
       </PageContent>
     </>
   );

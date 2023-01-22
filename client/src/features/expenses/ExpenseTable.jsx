@@ -6,21 +6,44 @@ import {
 import EditExpenseForm from "./EditExpenseForm";
 import DataTable, { createTheme } from "react-data-table-component";
 import "./ExpenseTable.css";
+import CsvDownloadButton from "react-json-to-csv";
 
 function ExpenseList({ userId }) {
   const [openEdit, setOpenEdit] = useState(false);
+  const [selectExpense, setSelectExpense] = useState(null);
+
   const {
     data: expenses,
     isLoading, // optional conditional rendering if data is loading
     isSuccess, // use for conditional rendering if data retrieved successfully
     isError, //use for conditional rendering when error occurs
     error, // use to render error
+    refetch,
   } = useGetExpensesQuery(userId);
 
   const [deleteExpense] = useDeleteExpenseMutation();
 
   function handleDelete(id) {
     deleteExpense(id);
+  }
+  function convertToCSV() {
+    const JSONToCSV = [];
+    expenses?.forEach((e) => {
+      const { vendor, category, value, posted } = e;
+      let formatObj = {
+        Merchant: vendor,
+        Category: category,
+        Date: posted.slice(0, 10),
+        Amount: value,
+      };
+      JSONToCSV.push(formatObj);
+    });
+    return JSONToCSV;
+  }
+  function formatCurrency(val) {
+    const CDN = { style: "currency", currency: "CAD" };
+    const numberFormat = new Intl.NumberFormat("en-CA", CDN);
+    return numberFormat.format(val);
   }
 
   const columns = [
@@ -35,14 +58,14 @@ function ExpenseList({ userId }) {
       sortable: true,
     },
     {
-      "name": "Date",
-      selector: (row) => row.posted.slice(0, 10),
+      name: "Date",
+      selector: (row) => row.posted?.slice(0, 10),
       sortable: true,
     },
     {
       "name": "",
       name: "Amount",
-      selector: (row) => `$${row.value}`,
+      selector: (row) => `${formatCurrency(row.value)}`,
       sortable: true,
     },
     {
@@ -96,11 +119,6 @@ function ExpenseList({ userId }) {
 
   return (
     <div className="expenses-container">
-      <DataTable
-        columns={columns}
-        data={expenses}
-        customStyles={customTableStyles}
-      />
       {
         /* <table>
         <thead>
@@ -135,6 +153,14 @@ function ExpenseList({ userId }) {
         </tbody>
       </table> */
       }
+      <h2>Expenses</h2>
+      <CsvDownloadButton data={convertToCSV()} />
+      <button onClick={refetch}>Refresh</button>
+      <DataTable
+        columns={columns}
+        data={expenses}
+        customStyles={customTableStyles}
+      />
     </div>
   );
 }
