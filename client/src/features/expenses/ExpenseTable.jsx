@@ -9,6 +9,8 @@ import CsvDownloadButton from "react-json-to-csv";
 
 function ExpenseList({ userId }) {
   const [openEdit, setOpenEdit] = useState(false);
+  const [selectExpense, setSelectExpense] = useState(null);
+
   const {
     data: expenses,
     isLoading, // optional conditional rendering if data is loading
@@ -29,14 +31,13 @@ function ExpenseList({ userId }) {
       let formatObj = {
         Merchant: vendor,
         Category: category,
-        Date: posted.slice(0,10),
+        Date: posted.slice(0, 10),
         Amount: value,
       };
       JSONToCSV.push(formatObj);
     });
     return JSONToCSV;
   }
-
 
   const columns = [
     {
@@ -68,13 +69,19 @@ function ExpenseList({ userId }) {
     {
       name: "",
       cell: (row) => {
-        console.log(row)
         return (
           <>
-            <button onClick={() => setOpenEdit(!openEdit)}>Edit</button>
+            <button
+              onClick={() => {
+                setOpenEdit(!openEdit);
+                setSelectExpense(row);
+              }}
+            >
+              Edit
+            </button>
             {openEdit ? (
               <EditExpenseForm
-                expense={row}
+                expense={selectExpense}
                 setOpenEdit={setOpenEdit}
                 openEdit={openEdit}
               />
