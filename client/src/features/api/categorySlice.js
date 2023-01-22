@@ -12,28 +12,39 @@ export const categorySlice = createApi({
   endpoints: (builder) => ({
     getCategories: builder.query({
       query: (id) => `categories/${id}`,
-      providesTags: ["Category", "Expense"],
+      providesTags: ["Category"],
     }),
-    // createCategory
-    // createCategory: builder.mutation({
-    //   query: (data) => ({
-    //     url: `/categories/create/${userId}`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    //   invalidatesTags: ["Category"],
-    // }),
+    createCategory: builder.mutation({
+      query: (data) => ({
+        url: `/categories/${userId}`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Category"],
+    }),
     deleteCategory: builder.mutation({
       query: (category) => ({
         url: `categories/${userId}`,
         method: "DELETE",
         body: category,
       }),
-      invalidatesTags: ["Category", "Expense"],
+      invalidatesTags: ["Category"],
+    }),
+    editCategory: builder.mutation({
+      query: (category) => ({
+        url: `categories/${userId}`,
+        method: "PUT",
+        body: category,
+      }),
+      invalidatesTags: ["Category"],
     }),
     // updateCategory
   }),
 });
 
-export const { useGetCategoriesQuery, useDeleteCategoryMutation } =
-  categorySlice;
+export const {
+  useGetCategoriesQuery,
+  useDeleteCategoryMutation,
+  useCreateCategoryMutation,
+  useEditCategoryMutation,
+} = categorySlice;

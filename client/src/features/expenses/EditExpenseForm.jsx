@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useUpdateExpenseMutation } from "../api/expenseSlice";
 
-export default function EditExpenseForm({ expense, setOpenEdit, openEdit, }) {
+export default function EditExpenseForm({ expense, setOpenEdit }) {
   const [formData, setFormData] = useState({
     id: expense._id,
     vendor: expense.vendor,

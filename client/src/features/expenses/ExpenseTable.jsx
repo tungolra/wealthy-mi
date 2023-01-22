@@ -17,6 +17,7 @@ function ExpenseList({ userId }) {
     isSuccess, // use for conditional rendering if data retrieved successfully
     isError, //use for conditional rendering when error occurs
     error, // use to render error
+    refetch,
   } = useGetExpensesQuery(userId);
 
   const [deleteExpense] = useDeleteExpenseMutation();
@@ -38,6 +39,11 @@ function ExpenseList({ userId }) {
     });
     return JSONToCSV;
   }
+  function formatCurrency(val) {
+    const CDN = { style: "currency", currency: "CAD" };
+    const numberFormat = new Intl.NumberFormat("en-CA", CDN);
+    return numberFormat.format(val);
+  }
 
   const columns = [
     {
@@ -57,7 +63,7 @@ function ExpenseList({ userId }) {
     },
     {
       name: "Amount",
-      selector: (row) => `$${row.value}`,
+      selector: (row) => `${formatCurrency(row.value)}`,
       sortable: true,
     },
     {
@@ -96,6 +102,7 @@ function ExpenseList({ userId }) {
     <div className="expenses-container">
       <h2>Expenses</h2>
       <CsvDownloadButton data={convertToCSV()} />
+      <button onClick={refetch}> Refresh </button>
       <DataTable columns={columns} data={expenses} />
     </div>
   );
