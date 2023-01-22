@@ -68,6 +68,7 @@ function ExpenseList({ userId }) {
     {
       name: "",
       cell: (row) => {
+        console.log(row)
         return (
           <>
             <button onClick={() => setOpenEdit(!openEdit)}>Edit</button>
