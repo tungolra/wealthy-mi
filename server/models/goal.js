@@ -5,7 +5,6 @@ const GoalSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      required: true,
     },
     targetDate: {
       type: Date,
