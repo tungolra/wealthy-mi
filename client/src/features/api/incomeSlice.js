@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const userId = localStorage.getItem("user");
 
-export const assetSlice = createApi({
+export const incomeSlice = createApi({
   reducerPath: "income",
   // all requests will have URLs starting with localhost or site
   baseQuery: fetchBaseQuery({
@@ -45,4 +45,4 @@ export const {
   useCreateIncomeMutation,
   useDeleteIncomeMutation,
   useUpdateIncomeMutation,
-} = assetSlice;
+} = incomeSlice;
