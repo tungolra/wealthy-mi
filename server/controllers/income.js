@@ -69,5 +69,5 @@ module.exports = {
   create: createIncome,
   index: getAllIncomes,
   delete: deleteIncome,
-  update: editIncome,
+  edit: editIncome,
 };

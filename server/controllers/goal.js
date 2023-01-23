@@ -70,5 +70,5 @@ module.exports = {
   create: createGoal,
   index: getAllGoals,
   delete: deleteGoal,
-  update: editGoal,
+  edit: editGoal,
 };

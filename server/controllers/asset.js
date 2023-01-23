@@ -70,5 +70,5 @@ module.exports = {
   create: createAsset,
   index: getAllAssets,
   delete: deleteAsset,
-  update: editAsset,
+  edit: editAsset,
 };
