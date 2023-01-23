@@ -33,7 +33,7 @@ async function getAllAssets(req, res) {
   }
 }
 async function editAsset(req, res) {
-  const assetId = req.params.assetId;
+  const assetId = req.params.id;
   const userId = req.params.userId;
   const { name, amount, pairedLiability } = req.body;
   try {
@@ -57,7 +57,7 @@ async function editAsset(req, res) {
 }
 
 async function deleteAsset(req, res) {
-  const assetId = req.params.assetId;
+  const assetId = req.params.id;
   try {
     await Expense.findByIdAndDelete(assetId);
     res.status(200).json("Asset deleted");

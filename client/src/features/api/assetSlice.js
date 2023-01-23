@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const userId = localStorage.getItem("user");
 
 export const assetSlice = createApi({
-  reducerPath: "asset",
+  reducerPath: "assets",
   // all requests will have URLs starting with localhost or site
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3001/",
