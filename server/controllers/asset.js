@@ -3,7 +3,7 @@ const titleCase = require("../utils/titleCase");
 
 async function createAsset(req, res) {
   const userId = req.params.id;
-
+  console.log(req.body);
   try {
     // build new Expense object
     const newAsset = new Asset(req.body);
@@ -11,6 +11,7 @@ async function createAsset(req, res) {
     await newAsset.save();
     res.status(200).json(newAsset);
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 }

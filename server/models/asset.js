@@ -5,15 +5,10 @@ const titleCase = require("../utils/titleCase");
 const AssetSchema = new Schema({
   user: { type: Schema.Types.ObjectId },
   name: { type: String, required: true },
-  amount: { type: Number, required: true },
-  pairedLiability: {
-    type: Schema.Types.ObjectId,
-    ref: "Liability",
-    required: false,
-  },
+  value: { type: Number, required: true },
 });
 
-AssetSchema.pre("save", (next) => {
+AssetSchema.pre("save", function (next) {
   this.name = titleCase(this.name);
   next();
 });

@@ -2,18 +2,21 @@ import { useCreateAssetMutation, useGetAssetsQuery } from "../api/assetSlice";
 import { useState } from "react";
 
 function Asset() {
-  const initialState = {};
+  const initialState = {
+    name: "",
+    value: 0,
+  };
 
   const userId = localStorage.getItem("user");
   const [createAsset] = useCreateAssetMutation();
   const [formData, setFormData] = useState(initialState);
 
-  const { data: income, isLoading, isSuccess, isError, error, refetch } =
+  const { data: assets, isLoading, isSuccess, isError, error, refetch } =
     useGetAssetsQuery(userId);
 
   function handleChange(e) {
     setFormData({
-      // ...formdata,
+      ...formData,
       [e.target.name]: e.target.value,
     });
   }
@@ -21,7 +24,7 @@ function Asset() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await createAsset(formData);
+      const res = await createAsset(formData);
     } catch (error) {
       console.log(error);
     }
@@ -29,10 +32,36 @@ function Asset() {
 
   return (
     <>
-      {income}
-      <p>This is assets</p>
+      {assets.map((asset) => <div>{asset.name}: {asset.value}</div>)}
       <form onSubmit={handleSubmit}>
-        <input></input>
+        <div className="container">
+          <div className="row">
+            <input
+              className="form-control col"
+              placeholder="Asset Title"
+              name="name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+            >
+            </input>
+            <input
+              className="form-control col"
+              placeholder="Value"
+              type="text"
+              name="value"
+              value={Number(formData.value)}
+              onChange={handleChange}
+            >
+            </input>
+            <button
+              className="btn btn-success text-white btn-sm mx-1 col-auto"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
       </form>
     </>
   );
