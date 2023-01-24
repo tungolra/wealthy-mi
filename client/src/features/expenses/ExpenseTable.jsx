@@ -112,11 +112,6 @@ function ExpenseList({ userId }) {
     },
   };
 
-  const expenseTableTheme = {
-    text: {},
-  };
-  createTheme("expenseTable", expenseTableTheme);
-
   return (
     <div className="expenses-container">
       <DataTable

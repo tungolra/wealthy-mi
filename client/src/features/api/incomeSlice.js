@@ -41,7 +41,7 @@ export const incomeSlice = createApi({
 });
 
 export const {
-  useGetIncomesQuery,
+  useGetIncomeQuery,
   useCreateIncomeMutation,
   useDeleteIncomeMutation,
   useUpdateIncomeMutation,

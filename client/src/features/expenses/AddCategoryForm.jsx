@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import { Collapse } from "react-bootstrap";
-import PageHeader from "../../components/page-content/PageHeader";
 import PageContent from "../../components/page-content/PageContent";
+import { useGetExpensesQuery } from "../api/expenseSlice";
 import {
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
   useEditCategoryMutation,
   useGetCategoriesQuery,
 } from "../api/categorySlice";
+
 function EditCategory({ setOpenEdit, categoryName }) {
   const [changeCategoryName, setChangeCategoryName] = useState([]);
-
+  const userId = localStorage.getItem("user");
   const [editCategory] = useEditCategoryMutation();
+
+  const { refetch } = useGetExpensesQuery(userId);
 
   async function updateCategory(e) {
     e.preventDefault();
     try {
       editCategory({ name: changeCategoryName, former: categoryName });
       setOpenEdit(false);
+      refetch();
     } catch (error) {
       console.log(error);
     }
