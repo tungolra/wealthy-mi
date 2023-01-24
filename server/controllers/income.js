@@ -1,9 +1,7 @@
 const Income = require("../models/income");
-const titleCase = require("../utils/titleCase");
 
 async function createIncome(req, res) {
   const userId = req.params.id;
-
   try {
     // build new Expense object
     const newIncome = new Income(req.body);
@@ -11,6 +9,7 @@ async function createIncome(req, res) {
     await newIncome.save();
     res.status(200).json(newIncome);
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 }
@@ -35,15 +34,15 @@ async function getAllIncomes(req, res) {
 async function editIncome(req, res) {
   const incomeId = req.params.id;
   const userId = req.params.userId;
-  const { period, amount } = req.body;
+  const { name, value } = req.body;
   try {
     // * add edge case for duplicates
     const income = await Income.findByIdAndUpdate(
       incomeId,
       {
         $set: {
-          period: period,
-          amount: amount,
+          name: name,
+          value: value,
         },
       },
       { new: true },
@@ -58,9 +57,10 @@ async function editIncome(req, res) {
 async function deleteIncome(req, res) {
   const incomeId = req.params.id;
   try {
-    await Expense.findByIdAndDelete(incomeId);
+    await Income.findByIdAndDelete(incomeId);
     res.status(200).json("Income deleted");
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 }

@@ -16,6 +16,7 @@ async function createGoal(req, res) {
 }
 
 async function getAllGoals(req, res) {
+  console.log("this is goal");
   const userId = req.params.id;
   const allGoals = await Goal.find({});
 

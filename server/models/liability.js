@@ -18,4 +18,4 @@ LiabilitySchema.pre("save", (next) => {
   next();
 });
 
-module.exports = mongoose.model("Asset", LiabilitySchema);
+module.exports = mongoose.model("Liability", LiabilitySchema);
