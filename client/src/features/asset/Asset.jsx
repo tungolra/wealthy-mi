@@ -1,5 +1,10 @@
-import { useCreateAssetMutation, useGetAssetsQuery } from "../api/assetSlice";
+import {
+  useCreateAssetMutation,
+  useDeleteAssetMutation,
+  useGetAssetsQuery,
+} from "../api/assetSlice";
 import { useState } from "react";
+import EditAssetModal from "./EditAsset";
 
 function Asset() {
   const initialState = {
@@ -8,9 +13,10 @@ function Asset() {
   };
 
   const userId = localStorage.getItem("user");
-  const [createAsset] = useCreateAssetMutation();
   const [formData, setFormData] = useState(initialState);
-
+  const [openEdit, setOpenEdit] = useState(false);
+  const [deleteAsset] = useDeleteAssetMutation();
+  const [createAsset] = useCreateAssetMutation();
   const { data: assets, isLoading, isSuccess, isError, error, refetch } =
     useGetAssetsQuery(userId);
 
@@ -30,9 +36,36 @@ function Asset() {
     }
   }
 
+  function handleDelete(id) {
+    deleteAsset(id);
+  }
+
   return (
     <>
-      {assets.map((asset) => <div>{asset.name}: {asset.value}</div>)}
+      {assets
+        ? assets.map((asset) => (
+          <>
+            <div>
+              <div>{asset.name}: {asset.value}</div>
+              <div
+                onClick={() => handleDelete(asset._id)}
+                className="btn btn-dark btn-sm"
+              >
+                Delete
+              </div>
+              <div
+                className="btn btn-warning btn-sm"
+                onClick={() => setOpenEdit(!openEdit)}
+              >
+                Edit
+              </div>
+            </div>
+            {openEdit
+              ? <EditAssetModal asset={asset} setOpenEdit={setOpenEdit} />
+              : null}
+          </>
+        ))
+        : <></>}
       <form onSubmit={handleSubmit}>
         <div className="container">
           <div className="row">
