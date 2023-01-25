@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const liabilityCtrl = require("../controllers/categories");
+const liabilityCtrl = require("../controllers/liability");
 
-router.use((req, res, next) => {
-  console.log(req.params);
+router.use((req, resp, next) => {
+  console.log("Hitting liability router");
+  next();
 });
+
 router.post("/create/:id", liabilityCtrl.create);
 router.put("/:userId/:id", liabilityCtrl.edit);
 router.get("/:id", liabilityCtrl.index);

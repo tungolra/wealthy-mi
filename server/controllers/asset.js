@@ -3,7 +3,6 @@ const titleCase = require("../utils/titleCase");
 
 async function createAsset(req, res) {
   const userId = req.params.id;
-  console.log(req.body);
   try {
     // build new Expense object
     const newAsset = new Asset(req.body);
@@ -34,9 +33,11 @@ async function getAllAssets(req, res) {
   }
 }
 async function editAsset(req, res) {
-  const assetId = req.params.id;
+  const assetId = req.params.assetId;
   const userId = req.params.userId;
-  const { name, amount, pairedLiability } = req.body;
+  const { name, value } = req.body;
+  console.log(req.body, assetId);
+  console.log(req.params);
   try {
     // * add edge case for duplicates
     const asset = await Asset.findByIdAndUpdate(
@@ -44,8 +45,7 @@ async function editAsset(req, res) {
       {
         $set: {
           name: titleCase(name),
-          amount: amount,
-          pairedLiability: pairedLiability,
+          value: value,
         },
       },
       { new: true },
@@ -60,9 +60,10 @@ async function editAsset(req, res) {
 async function deleteAsset(req, res) {
   const assetId = req.params.id;
   try {
-    await Expense.findByIdAndDelete(assetId);
+    await Asset.findByIdAndDelete(assetId);
     res.status(200).json("Asset deleted");
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 }

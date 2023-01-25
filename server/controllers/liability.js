@@ -3,7 +3,6 @@ const titleCase = require("../utils/titleCase");
 
 async function createLiability(req, res) {
   const userId = req.params.id;
-
   try {
     // build new Expense object
     const newLiability = new Liability(req.body);
@@ -11,6 +10,7 @@ async function createLiability(req, res) {
     await newLiability.save();
     res.status(200).json(newLiability);
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 }
@@ -18,7 +18,6 @@ async function createLiability(req, res) {
 async function getAllLiabilities(req, res) {
   const userId = req.params.id;
   const allLiabilities = await Liability.find({});
-
   try {
     // get user's expenses
     const liabilities = [];
@@ -27,6 +26,7 @@ async function getAllLiabilities(req, res) {
         liabilities.push(liability);
       }
     });
+    console.log(liabilities);
     res.status(200).json(liabilities);
   } catch (error) {
     res.status(500).json(error);
@@ -35,7 +35,7 @@ async function getAllLiabilities(req, res) {
 async function editLiability(req, res) {
   const liabid = req.params.id;
   const userId = req.params.userId;
-  const { name, amount, pairedAsset } = req.body;
+  const { name, value } = req.body;
   try {
     // * add edge case for duplicates
     const liability = await Liability.findByIdAndUpdate(
@@ -43,8 +43,7 @@ async function editLiability(req, res) {
       {
         $set: {
           name: titleCase(name),
-          amount: amount,
-          pairedAsset: pairedAsset,
+          value: value,
         },
       },
       { new: true },
@@ -59,7 +58,7 @@ async function editLiability(req, res) {
 async function deleteLiability(req, res) {
   const liabId = req.params.id;
   try {
-    await Expense.findByIdAndDelete(liabId);
+    await Liability.findByIdAndDelete(liabId);
     res.status(200).json("Liability deleted");
   } catch (error) {
     res.status(500).json(error);
