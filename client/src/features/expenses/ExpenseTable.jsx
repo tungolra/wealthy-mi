@@ -5,12 +5,10 @@ import {
 } from "../api/expenseSlice";
 import EditExpenseForm from "./EditExpenseForm";
 import DataTable, { createTheme } from "react-data-table-component";
-import "./ExpenseTable.css";
 import CsvDownloadButton from "react-json-to-csv";
 
 function ExpenseList({ userId }) {
   const [openEdit, setOpenEdit] = useState(false);
-  const [selectExpense, setSelectExpense] = useState(null);
 
   const {
     data: expenses,
