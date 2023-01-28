@@ -8,7 +8,8 @@ export const guideDetails = [
       "Quasi distinctio maiores, tenetur dolore totam officia sapiente. Ratione, deserunt veritatis. Dolore, dolor.",
       "Tempora, iusto ab. Corrupti distinctio officia fuga illum quo!",
     ],
-    link: { to: "app/expense", dir: "Expenses" },
+    link: { to: "../../app/expense", dir: "Expenses" },
+    style: "bg-warning",
   },
   {
     feat: "Assets",
@@ -20,6 +21,7 @@ export const guideDetails = [
       "Tempora, iusto ab. Corrupti distinctio officia fuga illum quo!",
     ],
     link: { to: "#", dir: "Assets" },
+    style: "bg-success",
   },
   {
     feat: "Liabilities",
@@ -31,6 +33,7 @@ export const guideDetails = [
       "Tempora, iusto ab. Corrupti distinctio officia fuga illum quo!",
     ],
     link: { to: "#", dir: "Liabilities" },
+    style: "bg-danger",
   },
   {
     feat: "Goal Setting",
@@ -41,6 +44,7 @@ export const guideDetails = [
       "Quasi distinctio maiores, tenetur dolore totam officia sapiente. Ratione, deserunt veritatis. Dolore, dolor.",
       "Tempora, iusto ab. Corrupti distinctio officia fuga illum quo!",
     ],
-    link: { to: "#", dir: "Goals" },
+    link: { to: "#", dir: "Dashboard" },
+    style: "bg-primary",
   },
 ];

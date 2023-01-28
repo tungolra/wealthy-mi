@@ -4,24 +4,57 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
 import ListGroup from "react-bootstrap/ListGroup";
-import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
 import { guideDetails } from "./guideContent";
 
 export default function Guide() {
+  const income =
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ipsam impedit? Soluta sint, quasi vero temporibus eaque molestiae corporis, maxime expedita a maiores accusantium vel non iste sequi, dolores blanditiis!";
+  const savings =
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ipsam impedit? Soluta sint, quasi vero temporibus eaque molestiae corporis, maxime expedita a maiores accusantium vel non iste sequi, dolores blanditiis!";
+  const popover = (str) => (
+    <Popover id="popover-basic">
+      <Popover.Body>{str}</Popover.Body>
+    </Popover>
+  );
+
+  const Info = () => (
+    <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+      <OverlayTrigger
+        trigger="click"
+        placement="bottom"
+        overlay={popover(income)}
+      >
+        <Button className="text-white bg-secondary" variant="success">
+          Income
+        </Button>
+      </OverlayTrigger>
+      <OverlayTrigger
+        trigger="click"
+        placement="bottom"
+        overlay={popover(savings)}
+      >
+        <Button className="text-white bg-secondary" variant="success">
+          Savings
+        </Button>
+      </OverlayTrigger>
+    </div>
+  );
   const appDetails = (
-    <Card style={{ width: "36rem" }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
+    <Card className="bg-info">
       <Card.Body>
-        <Card.Title>Introduction</Card.Title>
-        <Card.Text>
+        <Card.Title className="text-white">Introduction</Card.Title>
+        <Card.Text className="text-white">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse fugiat
           odio incidunt tempora minima eligendi, dignissimos rerum
           exercitationem similique amet voluptates ipsa eveniet tenetur cumque
           soluta totam repudiandae debitis perspiciatis.
         </Card.Text>
+        <Info />
       </Card.Body>
     </Card>
   );
@@ -51,26 +84,33 @@ export default function Guide() {
     </Accordion>
   );
 
-  const features = (feat, def, imp, tips, link) => (
-    <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>{feat}</Card.Title>
-        {accordian(def, imp, tips)}
-        <Link to={link.to}>
-          <Button variant="primary">{`View your current ${link?.dir}`}</Button>
-        </Link>
-      </Card.Body>
-    </Card>
+  const features = (feat, def, imp, tips, link, style) => (
+    <Col xs={6} style={{ padding: "calc(var(--bs-gutter-x) * 0.5)" }}>
+      <Card>
+        <Card.Body className={style}>
+          <Card.Title className="text-white">{feat}</Card.Title>
+          {accordian(def, imp, tips)}
+          <Link to={link.to}>
+            <Button
+              className="bg-secondary"
+              variant="primary"
+            >{`View your ${link?.dir}`}</Button>
+          </Link>
+        </Card.Body>
+      </Card>
+    </Col>
   );
+
   const guide = guideDetails.map((g) =>
-    features(g.feat, g.def, g.imp, g.tips, g.link)
+    features(g.feat, g.def, g.imp, g.tips, g.link, g.style)
   );
 
   return (
-    <Stack gap={3}>
-      {appDetails}
-      {guide}
-    </Stack>
+    <>
+      <Container fluid>
+        {appDetails}
+        <Row>{guide}</Row>
+      </Container>
+    </>
   );
 }
