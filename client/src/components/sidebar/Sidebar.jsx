@@ -80,6 +80,10 @@ export default function Sidebar(props) {
           <i className="fas fa-fw fa-book"></i>
           <span>Demo Logs</span>
         </Link>
+        <Link to="guide" className="nav-link">
+          <i className="fa fa-map-signs"></i>
+          <span>Guide</span>
+        </Link>
       </li>
 
       <NavItem {...sampleDropDown} />

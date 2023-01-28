@@ -6,6 +6,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Demo from "./features/demo/Demo";
 import ConstructionAlert from "./components/ConstructionAlert";
 import Expenses from "./features/expenses/Expenses";
+import Guide from "./features/guide/Guide";
 
 function App() {
   let showConAlert = () => {};
@@ -20,6 +21,7 @@ function App() {
       <Sidebar conAlert={() => showConAlert(true)} />
       <Routes>
         <Route path="demo" element={<Demo />}></Route>
+        <Route path="guide" element={<Guide />}></Route>
         <Route path="expense" element={<Expenses />}></Route>
         <Route path="*" ErrorHandling></Route>
       </Routes>
