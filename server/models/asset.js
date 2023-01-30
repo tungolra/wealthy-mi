@@ -6,6 +6,7 @@ const AssetSchema = new Schema({
   user: { type: Schema.Types.ObjectId },
   name: { type: String, required: true },
   value: { type: Number, required: true },
+  interest: { type: Number, required: true, default: 7 },
 });
 
 AssetSchema.pre("save", function (next) {
