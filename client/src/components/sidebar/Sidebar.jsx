@@ -40,14 +40,14 @@ export default function Sidebar(props) {
         key="Dashboard"
         className="nav-item"
       >
-        <a
+        <Link
           className="nav-link"
-          href="#"
+          to="/app/dashboard"
           onClick={() => props.conAlert(true)}
         >
           <i className="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
-        </a>
+        </Link>
       </li>
 
       <li
