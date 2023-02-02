@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import { Collapse } from "react-bootstrap";
-import PageHeader from "../../components/page-content/PageHeader";
 import PageContent from "../../components/page-content/PageContent";
+import { useGetExpensesQuery } from "../api/expenseSlice";
 import {
-  useGetCategoriesQuery,
-  useDeleteCategoryMutation,
   useCreateCategoryMutation,
+  useDeleteCategoryMutation,
   useEditCategoryMutation,
+  useGetCategoriesQuery,
 } from "../api/categorySlice";
+
 function EditCategory({ setOpenEdit, categoryName }) {
   const [changeCategoryName, setChangeCategoryName] = useState([]);
-
+  const userId = localStorage.getItem("user");
   const [editCategory] = useEditCategoryMutation();
+
+  const { refetch } = useGetExpensesQuery(userId);
 
   async function updateCategory(e) {
     e.preventDefault();
     try {
       editCategory({ name: changeCategoryName, former: categoryName });
       setOpenEdit(false);
+      refetch();
     } catch (error) {
       console.log(error);
     }
@@ -87,6 +91,15 @@ function AddCategory() {
     </>
   );
 
+  const categoryColors = [
+    "primary",
+    "warning",
+    "danger",
+    "info",
+    "dark",
+    "success",
+  ];
+
   return (
     <>
       <PageContent>
@@ -110,10 +123,29 @@ function AddCategory() {
                 />
                 <button
                   type="submit"
-                  className="btn btn-dark btn-sm mx-1 col-auto"
+                  className="btn btn-success text-white btn-sm mx-1 col-auto"
                 >
                   Submit
                 </button>
+              </div>
+            </div>
+            <div className="container mb-4">
+              <div className="row">
+                {!isLoading
+                  ? categories
+                    ? categories?.map((category, index) => {
+                      var buttonColor =
+                        categoryColors[index % categoryColors.length];
+                      return (
+                        <div
+                          className={`col bg-${buttonColor} border-${buttonColor} bg-gradient border rounded text-white mx-2 my-2 py-2 d-flex justify-content-center`}
+                        >
+                          {category}
+                        </div>
+                      );
+                    })
+                    : <></>
+                  : <></>}
               </div>
             </div>
           </form>
@@ -138,12 +170,14 @@ function AddCategory() {
               </li>
             ))}
           </ul>
-          {openEdit ? (
-            <EditCategory
-              categoryName={editCategory}
-              setOpenEdit={setOpenEdit}
-            />
-          ) : null}
+          {openEdit
+            ? (
+              <EditCategory
+                categoryName={editCategory}
+                setOpenEdit={setOpenEdit}
+              />
+            )
+            : null}
         </div>
       </PageContent>
     </>

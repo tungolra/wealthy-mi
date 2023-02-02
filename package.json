@@ -12,6 +12,7 @@
     "npm": "8.x"
   },
   "dependencies": {
-    "bootstrap": "4.6.x"
+    "bootstrap": "4.6.x",
+    "styled-components": "^5.3.6"
   }
 }

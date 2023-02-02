@@ -8,6 +8,12 @@ import ConstructionAlert from "./components/ConstructionAlert";
 import Expenses from "./features/expenses/Expenses";
 import Guide from "./features/guide/Guide";
 
+import Income from "./features/income/Income";
+import Goal from "./features/goals/Goals";
+import Dashboard from "./features/dashboard/Dashboard";
+import Asset from "./features/asset/Asset";
+import Liability from "./features/liability/Liabilities";
+
 function App() {
   let showConAlert = () => {};
 
@@ -23,6 +29,11 @@ function App() {
         <Route path="demo" element={<Demo />}></Route>
         <Route path="guide" element={<Guide />}></Route>
         <Route path="expense" element={<Expenses />}></Route>
+        <Route path="income" element={<Income />}></Route>
+        <Route path="goal" element={<Goal />}></Route>
+        <Route path="dashboard" element={<Dashboard />}></Route>
+        <Route path="asset" element={<Asset />}></Route>
+        <Route path="liability" element={<Liability />}></Route>
         <Route path="*" ErrorHandling></Route>
       </Routes>
     </div>

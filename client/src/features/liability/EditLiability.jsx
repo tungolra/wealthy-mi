@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { useUpdateExpenseMutation } from "../api/expenseSlice";
+import { useUpdateLiabilityMutation } from "../api/liabilitySlice";
 
-export default function EditExpenseForm({ expense, setOpenEdit }) {
+export default function EditAssetModal({ liability, setOpenEdit }) {
   const [formData, setFormData] = useState({
-    id: expense._id,
-    vendor: expense.vendor,
-    category: expense.category,
-    posted: expense.posted,
-    value: expense.value,
+    id: liability._id,
+    value: liability.value,
+    name: liability.name,
   });
-  
-  const [updateExpense] = useUpdateExpenseMutation();
+
+  const [updateAsset] = useUpdateLiabilityMutation();
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,7 +17,7 @@ export default function EditExpenseForm({ expense, setOpenEdit }) {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await updateExpense(formData);
+      await updateAsset(formData);
       setOpenEdit(false);
     } catch (error) {
       console.log(error);
@@ -36,40 +34,24 @@ export default function EditExpenseForm({ expense, setOpenEdit }) {
   return (
     <div
       style={EditModalStyling}
-      className=" bg-dark border border-dark rounded-2"
+      className=" bg-dark border border-dark rounded-2 mx-5 my-5"
     >
       <form onSubmit={handleSubmit} className="py-3 px-5">
         <div className="container ">
           <div className="row">
             <input
               className="form-control col text-dark"
-              name="vendor"
+              placeholder={liability.name}
+              name="name"
               type="text"
-              value={formData.vendor}
+              value={formData.name}
               onChange={handleChange}
             />
             <input
               className="form-control col text-dark"
-              name="category"
-              type="text"
-              value={formData.category}
-              onChange={handleChange}
-            />
-            <input
-              className="form-control col text-dark"
-              form="form-control"
-              type="date"
-              name="posted"
-              value={formData.posted.slice(0, 10)}
-              onChange={handleChange}
-            />
-            <input
-              className="form-control col text-dark"
-              placeholder="amount"
+              placeholder=""
               name="value"
               type="text"
-              min="0"
-              step="0.01"
               value={formData.value}
               onChange={handleChange}
             />
