@@ -1,8 +1,13 @@
 import { useCreateGoalMutation, useGetGoalsQuery } from "../api/goalSlice";
 import { useState } from "react";
+import EditGoalModal from "./EditGoal";
 
 function Goal() {
-  const initialState = {};
+  const initialState = {
+    targetDate: "",
+    name: "",
+    value: 0,
+  };
 
   const userId = localStorage.getItem("user");
   const [createGoal] = useCreateGoalMutation();
@@ -13,7 +18,7 @@ function Goal() {
 
   function handleChange(e) {
     setFormData({
-      // ...formdata,
+      ...formData,
       [e.target.name]: e.target.value,
     });
   }
@@ -21,18 +26,54 @@ function Goal() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await createGoal(formData);
+      const res = await createGoal(formData);
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
   }
-
   return (
     <>
-      {goals}
+      {isSuccess
+        ? goals.map((goal) => {
+          return <p>{goal.name}</p>;
+        })
+        : <></>}
       <p>This is goals</p>
       <form onSubmit={handleSubmit}>
-        <input></input>
+        <div className="container ">
+          <div className="row">
+            <input
+              className="form-control col"
+              name="name"
+              placeholder="Title"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <input
+              className="form-control col"
+              name="value"
+              placeholder="Value"
+              type="text"
+              value={formData.value}
+              onChange={handleChange}
+            />
+            <input
+              className="form-control col"
+              name="targetDate"
+              type="date"
+              value={formData.targetDate}
+              onChange={handleChange}
+            />
+            <button
+              className="btn btn-success text-white btn-sm mx-1 col-auto"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
       </form>
     </>
   );

@@ -39,7 +39,7 @@ function ExpensePieChartCard({ sumExp }) {
 
   return (
     <div className="col-lg-6">
-      <div className="card shadow mx-1 my-3 my-lg-0 ">
+      <div className="card shadow mx-1 my-3 my-lg-0 h-100">
         <div className="card-header py-3">
           <h6 className="m-0 font-weight-bold text-primary">
             Expenses Summary

@@ -3,7 +3,7 @@ const titleCase = require("../utils/titleCase");
 
 async function createGoal(req, res) {
   const userId = req.params.id;
-
+  console.log(req.body);
   try {
     // build new Expense object
     const newGoal = new Goal(req.body);
@@ -11,12 +11,12 @@ async function createGoal(req, res) {
     await newGoal.save();
     res.status(200).json(newGoal);
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 }
 
 async function getAllGoals(req, res) {
-  console.log("this is goal");
   const userId = req.params.id;
   const allGoals = await Goal.find({});
 
@@ -36,21 +36,21 @@ async function getAllGoals(req, res) {
 async function editGoal(req, res) {
   const goalId = req.params.goalId;
   const userId = req.params.userId;
-  const { name, amount, pairedLiability } = req.body;
+  const { name, value, targetDate } = req.body;
   try {
     // * add edge case for duplicates
-    const asset = await Goal.findByIdAndUpdate(
+    const goal = await Goal.findByIdAndUpdate(
       goalId,
       {
         $set: {
           name: titleCase(name),
-          amount: amount,
-          pairedLiability: pairedLiability,
+          value: value,
+          targetDate: targetDate,
         },
       },
       { new: true },
     );
-    res.status(200).json(asset);
+    res.status(200).json(goal);
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
