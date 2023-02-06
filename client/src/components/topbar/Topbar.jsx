@@ -1,6 +1,7 @@
 import React from "react";
 
 const Topbar = (props) => {
+  const conAlert = props.conAlert;
   const handleSearch = () => {};
   return (
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -21,7 +22,11 @@ const Topbar = (props) => {
             aria-describedby="basic-addon2"
           />
           <div className="input-group-append">
-            <button className="btn btn-primary" type="button">
+            <button
+              className="btn btn-primary"
+              type="button"
+              onClick={() => conAlert()}
+            >
               <i className="fas fa-search fa-sm"></i>
             </button>
           </div>
@@ -38,6 +43,7 @@ const Topbar = (props) => {
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
+            onClick={() => conAlert()}
           >
             <i className="fas fa-search fa-fw"></i>
           </a>
@@ -55,7 +61,11 @@ const Topbar = (props) => {
                   aria-describedby="basic-addon2"
                 />
                 <div className="input-group-append">
-                  <button className="btn btn-primary" type="button">
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={() => conAlert()}
+                  >
                     <i className="fas fa-search fa-sm"></i>
                   </button>
                 </div>
@@ -73,6 +83,7 @@ const Topbar = (props) => {
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
+            onClick={() => conAlert()}
           >
             <i className="fas fa-bell fa-fw"></i>
             <span className="badge badge-danger badge-counter">3+</span>
@@ -87,7 +98,11 @@ const Topbar = (props) => {
             <a className="dropdown-item d-flex align-items-center" href="#">
               <div className="me-3">
                 <div className="icon-circle bg-primary">
-                  <i className="fas fa-file-alt text-white"></i>
+                  <i
+                    className="fas fa-file-alt text-white"
+                    onClick={() => conAlert()}
+                  >
+                  </i>
                 </div>
               </div>
               <div>
@@ -138,6 +153,7 @@ const Topbar = (props) => {
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
+            onClick={() => conAlert()}
           >
             <i className="fas fa-envelope fa-fw"></i>
             <span className="badge badge-danger badge-counter">7</span>
@@ -237,6 +253,7 @@ const Topbar = (props) => {
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
+            onClick={() => conAlert()}
           >
             <span className="me-2 d-none d-lg-inline text-gray-600 small">
               Douglas McGee
