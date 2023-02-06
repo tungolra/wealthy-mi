@@ -118,43 +118,16 @@ function ExpenseList({ userId }) {
         data={expenses}
         customStyles={customTableStyles}
       />
-      {
-        /* <table>
-        <thead>
-          <tr>
-            <th>Vendor</th>
-            <th>Category</th>
-            <th>Transaction Date</th>
-            <th>Amount</th>
-            <th>Delete</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {expenses?.map((expense, idx) => (
-            <tr key={idx}>
-              <th>{expense?.vendor}</th>
-              <th>{expense?.category}</th>
-              <th>{expense?.posted.slice(0, 10)}</th>
-              <th>${expense?.value}</th>
-              <th>
-                <button onClick={() => handleDelete(expense._id)}>
-                  Delete
-                </button>
-              </th>
-              <th>
-                <button onClick={() => setOpenEdit(!openEdit)}>Edit</button>
-              </th>
-
-              {openEdit ? <EditExpenseForm expense={expense} /> : null}
-            </tr>
-          ))}
-        </tbody>
-      </table> */
-      }
-      <h2>Expenses</h2>
-      <CsvDownloadButton data={convertToCSV()} />
-      <button onClick={refetch}>Refresh</button>
+      <div className="d-flex">
+        <div className="me-auto">Download your data</div>
+        <CsvDownloadButton
+          className="btn btn-dark mx-1"
+          data={convertToCSV()}
+        />
+        <button className="btn btn-warning mx-1 text-white" onClick={refetch}>
+          Refresh Data
+        </button>
+      </div>
     </div>
   );
 }

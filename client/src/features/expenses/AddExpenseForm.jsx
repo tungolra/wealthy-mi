@@ -44,7 +44,8 @@ function ExpenseForm() {
       className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
       onClick={() => setOpen(!open)}
     >
-      <i className="fa-solid fa-paperclip text-white-50"></i>&nbsp; Log Expense
+      <i className="fa-solid fa-paperclip text-white-50"></i>Log Expenses
+      &nbsp;&nbsp;
     </a>
   );
 
