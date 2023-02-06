@@ -21,7 +21,7 @@ function ExpenseSummaryCard({ sumExp }) {
   }
 
   return (
-    <div className="col-lg-6">
+    <div className="col-lg-4">
       <div className="card shadow mx-1 my-3 my-lg-0 h-100">
         <div className="card-header py-3">
           <h6 className="m-0 font-weight-bold text-primary">
@@ -38,7 +38,7 @@ function ExpenseSummaryCard({ sumExp }) {
             </div>
           </div>
           {sumExp.slice().map((exp, index) => {
-            return <ExpenseLine variant={exp[0]} value={exp[1]} />;
+            return <ExpenseLine key={index} variant={exp[0]} value={exp[1]} />;
           })}
         </div>
       </div>
