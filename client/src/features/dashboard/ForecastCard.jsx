@@ -1,3 +1,4 @@
+import { getFutureValue } from "../../utils/growthFuncs";
 import { Line } from "react-chartjs-2";
 import { ArcElement, Chart } from "chart.js";
 import {
@@ -12,7 +13,14 @@ import {
 } from "chart.js";
 
 function ForecastCard(
-  { foreCastLength, assets, liabilities, netIncome, rateAdjust = 0 },
+  {
+    foreCastLength,
+    assets,
+    liabilities,
+    netIncome,
+    setForeCastLength,
+    rateAdjust = 0,
+  },
 ) {
   ChartJS.register(
     CategoryScale,
@@ -34,19 +42,17 @@ function ForecastCard(
     },
   };
 
-  function calcBalanceSheet(item, iterNum) {
-    return item.value * (1 + (item.interest - rateAdjust) / 12) ** (iterNum);
-  }
   //networth Funct
-  function calcNetWorth(iterNum) {
+  function calcNetWorth(monthNum) {
     // total asset Growth
-    // total liability growth
     var assetGrowth = assets.reduce(
-      (acc, asset) => acc + calcBalanceSheet(asset, iterNum),
+      (acc, asset) =>
+        acc + getFutureValue(asset.value, monthNum, asset.interest),
       0,
     );
+    // total liability growth
     var liabilityGrowth = liabilities.reduce(
-      (acc, liab) => acc + calcBalanceSheet(liab, iterNum),
+      (acc, liab) => acc + getFutureValue(liab.value, monthNum, liab.interest),
       0,
     );
 
@@ -67,10 +73,31 @@ function ForecastCard(
   return (
     <div className="col-lg-8">
       <div className="card shadow mx-1 my-lg-0 my-3 h-100">
-        <div className="card-header py-3">
-          <h6 className="m-0 font-weight-bold text-primary">
+        <div className="card-header py-3 d-flex">
+          <h6 className="m-0 font-weight-bold text-primary me-auto">
             My Financial Forecast
           </h6>
+          <div
+            onClick={() => setForeCastLength(3)}
+            className={"btn text-white mx-1" +
+              (foreCastLength === 3 ? " btn-dark" : " btn-info")}
+          >
+            3 Month
+          </div>
+          <div
+            className={"btn text-white mx-1" +
+              (foreCastLength === 6 ? " btn-dark" : " btn-info")}
+            onClick={() => setForeCastLength(6)}
+          >
+            6 Month
+          </div>
+          <div
+            className={"btn text-white mx-1" +
+              (foreCastLength === 12 ? " btn-dark" : " btn-info")}
+            onClick={() => setForeCastLength(12)}
+          >
+            12 Month
+          </div>
         </div>
         <div className="card-body">
           <Line options={chartOptions} data={data} />

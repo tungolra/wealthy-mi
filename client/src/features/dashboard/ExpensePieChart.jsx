@@ -38,7 +38,7 @@ function ExpensePieChartCard({ sumExp }) {
   };
 
   return (
-    <div className="col-lg-6">
+    <div className="col-lg-8">
       <div className="card shadow mx-1 my-3 my-lg-0 h-100">
         <div className="card-header py-3">
           <h6 className="m-0 font-weight-bold text-primary">
@@ -53,19 +53,17 @@ function ExpensePieChartCard({ sumExp }) {
             <div className="col-md-6 ">
               {sumExp.slice(0, 10).map((exp, index) => {
                 return (
-                  <>
-                    <div className="d-flex">
-                      <div
-                        className="me-auto"
-                        style={{ color: `${colorMap[index]}` }}
-                      >
-                        {exp[0].slice()}
-                      </div>
-                      <div className="" style={{ color: `${colorMap[index]}` }}>
-                        {exp[2]}%
-                      </div>
+                  <div key={index} className="d-flex">
+                    <div
+                      className="me-auto"
+                      style={{ color: `${colorMap[index]}` }}
+                    >
+                      {exp[0].slice()}
                     </div>
-                  </>
+                    <div className="" style={{ color: `${colorMap[index]}` }}>
+                      {exp[2]}%
+                    </div>
+                  </div>
                 );
               })}
             </div>

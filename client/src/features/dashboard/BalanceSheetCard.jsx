@@ -8,13 +8,13 @@ function BalanceSheetCard({ assets, liabilities, foreCastLength }) {
     return item.value * rate / 100 * foreCastLength / 12;
   }
 
-  function BalanceSheetLine(item) {
+  function BalanceSheetLine(item, index) {
     let val = calcReturns(item);
     let sign = val < 0 ? "- " : "+ ";
     val = sign +
       val.toLocaleString("en-us", { style: "currency", currency: "USD" });
     return (
-      <div className="d-flex">
+      <div key={index} className="d-flex">
         <div className="me-auto">{item.name}</div>
         <div className="">
           {val}
@@ -22,6 +22,13 @@ function BalanceSheetCard({ assets, liabilities, foreCastLength }) {
       </div>
     );
   }
+
+  const net = assets.map((asset) => calcReturns(asset)).reduce(
+    (acc, next) => acc + next,
+    0,
+  ) + liabilities.map((liab) =>
+    calcReturns(liab)
+  ).reduce((acc, next) => acc + next, 0);
 
   return (
     <div className="col-lg-4 ">
@@ -33,10 +40,20 @@ function BalanceSheetCard({ assets, liabilities, foreCastLength }) {
         </div>
         <div className="card-body container">
           <div className="text-success">
-            {assets.map((asset) => BalanceSheetLine(asset))}
+            {assets.map((asset, index) => BalanceSheetLine(asset, index))}
           </div>
           <div className="text-danger">
-            {liabilities.map((liab) => BalanceSheetLine(liab))}
+            {liabilities.map((liab, index) => BalanceSheetLine(liab, index))}
+          </div>
+          <br />
+          <div className="text-dark d-flex border-bottom border-dark">
+            <div className="me-auto">Net</div>
+            <div className="">
+              {net.toLocaleString("en-us", {
+                style: "currency",
+                currency: "USD",
+              })}
+            </div>
           </div>
         </div>
       </div>

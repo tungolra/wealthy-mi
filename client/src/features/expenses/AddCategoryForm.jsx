@@ -86,7 +86,7 @@ function AddCategory() {
         className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
         onClick={() => setOpen(!open)}
       >
-        <i className="fa-solid fa-paperclip text-white-50"></i> Add Category
+        <i className="fa-solid fa-paperclip text-white-50"></i> Edit Categories
       </a>
     </>
   );
@@ -138,9 +138,26 @@ function AddCategory() {
                         categoryColors[index % categoryColors.length];
                       return (
                         <div
-                          className={`col bg-${buttonColor} border-${buttonColor} bg-gradient border rounded text-white mx-2 my-2 py-2 d-flex justify-content-center`}
+                          className={`col bg-${buttonColor} border-${buttonColor} bg-gradient border rounded text-white mx-2 my-2 py-2 d-flex justify-content-center align-items-center w-auto`}
                         >
-                          {category}
+                          <div className="me-auto pe-1">
+                            {category}
+                          </div>
+                          <div
+                            className="btn text-white border-white rounded mx-1"
+                            onClick={() => {
+                              setEditCategory(category);
+                              setOpenEdit(!openEdit);
+                            }}
+                          >
+                            Edit
+                          </div>
+                          <div
+                            className="btn text-white border-white rounded mx-1 "
+                            onClick={() => handleDeleteCategory(category)}
+                          >
+                            Delete
+                          </div>
                         </div>
                       );
                     })
@@ -150,35 +167,14 @@ function AddCategory() {
             </div>
           </form>
         </Collapse>
-        <div>
-          <h3>Your Categories</h3>
-          <ul>
-            {categories?.map((category) => (
-              <li>
-                {category} -
-                <button onClick={() => handleDeleteCategory(category)}>
-                  delete
-                </button>
-                <button
-                  onClick={() => {
-                    setEditCategory(category);
-                    setOpenEdit(!openEdit);
-                  }}
-                >
-                  edit
-                </button>
-              </li>
-            ))}
-          </ul>
-          {openEdit
-            ? (
-              <EditCategory
-                categoryName={editCategory}
-                setOpenEdit={setOpenEdit}
-              />
-            )
-            : null}
-        </div>
+        {openEdit
+          ? (
+            <EditCategory
+              categoryName={editCategory}
+              setOpenEdit={setOpenEdit}
+            />
+          )
+          : null}
       </PageContent>
     </>
   );

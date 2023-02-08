@@ -16,7 +16,7 @@ function SummaryCard({ variant, title, value }) {
               <div className="h5 mb-0 font-weight-bold text-gray-800">
                 $ {value}
               </div>
-              <div class="col auto">
+              <div className="col auto">
                 <i className="" />
               </div>
             </div>

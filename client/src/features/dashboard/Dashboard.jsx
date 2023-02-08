@@ -3,7 +3,7 @@ import { useGetCategoriesQuery } from "../api/categorySlice";
 import { useGetAssetsQuery } from "../api/assetSlice";
 import { useGetLiabilitiesQuery } from "../api/liabilitySlice";
 import { useGetIncomeQuery } from "../api/incomeSlice";
-
+import { getFutureValue } from "../../utils/growthFuncs";
 import PageContent from "../../components/page-content/PageContent";
 import Page from "../../components/page/Page";
 import ExpenseSummaryCard from "./ExpenseSummaryCard";
@@ -49,30 +49,6 @@ function Dashboard() {
 
   let totalExp, totalIncome, netIncome, totalAssets, totalLiab, totalGrowth = 0;
 
-  // Asset Growth over forecast period
-  if (successAssets) {
-    assets.forEach((asset) => {
-      if (!asset.interest) {
-        var rate = 7;
-      } else {
-        var rate = asset.interest;
-      }
-      var growth = asset.value * rate / 100 * foreCastLength / 12;
-    });
-  }
-
-  // Liability Growth over forecast period
-  if (successLiab) {
-    liabilities.forEach((liab) => {
-      if (!liab.interest) {
-        var rate = 7;
-      } else {
-        var rate = liab.interest;
-      }
-      var growth = liab.value * rate / 100 * foreCastLength / 12;
-    });
-  }
-
   // Total of Separate Data points for summary card
   if (retrievedAllData) {
     totalExp = sumExpSorted.reduce((acc, curr) => acc + curr[1], 0);
@@ -80,9 +56,16 @@ function Dashboard() {
     totalAssets = assets.reduce((acc, curr) => acc + curr.value, 0);
     totalLiab = liabilities.reduce((acc, curr) => acc + curr.value, 0);
     netIncome = totalIncome - totalExp;
+
     totalGrowth = () => {
-      var assetGrowth = totalAssets * (0.07 * foreCastLength / 12);
-      var liabGrowth = totalLiab * (0.09 * foreCastLength / 12);
+      var assetGrowth = assets.map((asset) => {
+        var val = getFutureValue(asset.value, foreCastLength, asset.interest);
+        return val;
+      }).reduce((acc, curr) => acc + curr, 0) - totalAssets;
+      var liabGrowth = liabilities.map((liab) =>
+        getFutureValue(liab.value, foreCastLength, liab.interest)
+      ).reduce((acc, curr) =>
+        acc + curr, 0) - totalLiab;
       var totalExpFC = totalExp * foreCastLength;
       var totalIncomeFC = totalIncome * foreCastLength;
       return assetGrowth + totalIncomeFC - liabGrowth - totalExpFC;
@@ -110,8 +93,8 @@ function Dashboard() {
               variant="warning"
             />
             <SummaryCard
-              title="Monthly Growth"
-              value={retrievedAllData ? totalGrowth() : 0}
+              title="Average Monthly Growth"
+              value={retrievedAllData ? totalGrowth() / foreCastLength : 0}
               variant="danger"
             />
           </div>
@@ -126,6 +109,7 @@ function Dashboard() {
                     liabilities={liabilities}
                     netIncome={netIncome}
                     foreCastLength={foreCastLength}
+                    setForeCastLength={setForeCastLength}
                   />
                   <BalanceSheet
                     assets={assets}
