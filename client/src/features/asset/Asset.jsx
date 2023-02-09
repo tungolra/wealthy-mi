@@ -43,8 +43,8 @@ function Asset() {
   return (
     <>
       {assets
-        ? assets.map((asset) => (
-          <>
+        ? assets.map((asset, index) => (
+          <div key={index}>
             <div>
               <div>{asset.name}: {asset.value}</div>
               <div
@@ -63,7 +63,7 @@ function Asset() {
             {openEdit
               ? <EditAssetModal asset={asset} setOpenEdit={setOpenEdit} />
               : null}
-          </>
+          </div>
         ))
         : <></>}
       <form onSubmit={handleSubmit}>

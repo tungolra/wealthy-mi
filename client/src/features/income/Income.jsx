@@ -43,8 +43,8 @@ function Income() {
   return (
     <>
       {incomes
-        ? incomes.map((income) => (
-          <div>
+        ? incomes.map((income, index) => (
+          <div key={index}>
             <div>{income.name} {income.period} {income.value}</div>
             <div
               className="btn btn-dark"
