@@ -1,0 +1,52 @@
+[
+    {
+      "vendor": "Exoplode",
+      "category": {
+        "name": "dining"
+      },
+      "posted": "2010-05-06T17:58:49.718Z",
+      "value": 926,
+      "user": "63b4b5270eff3be35f56e415",
+      "createdAt": "2013-09-25T09:00:59.385Z"
+    },
+    {
+      "vendor": "Digique",
+      "category": {
+        "name": "memberships"
+      },
+      "posted": "2014-06-24T01:08:04.556Z",
+      "value": 618,
+      "user": "63b4b5270eff3be35f56e415",
+      "createdAt": "2012-01-19T00:02:17.208Z"
+    },
+    {
+      "vendor": "Ludak",
+      "category": {
+        "name": "health"
+      },
+      "posted": "2012-06-15T23:58:18.976Z",
+      "value": 481,
+      "user": "63b4b5270eff3be35f56e415",
+      "createdAt": "2011-04-25T03:31:19.573Z"
+    },
+    {
+      "vendor": "Danja",
+      "category": {
+        "name": "memberships"
+      },
+      "posted": "2011-12-07T13:54:02.614Z",
+      "value": 78,
+      "user": "63b4b5270eff3be35f56e415",
+      "createdAt": "2014-12-18T09:45:18.868Z"
+    },
+    {
+      "vendor": "Artiq",
+      "category": {
+        "name": "savings"
+      },
+      "posted": "2012-10-28T10:33:00.033Z",
+      "value": 327,
+      "user": "63b4b5270eff3be35f56e415",
+      "createdAt": "2014-07-25T05:26:28.621Z"
+    }
+  ]
