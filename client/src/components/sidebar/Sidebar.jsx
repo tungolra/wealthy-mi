@@ -40,7 +40,7 @@ export default function Sidebar(props) {
           "subTitle": "Manage My Accounts",
           "subNavItems": [
             {
-              "title": "Income",
+              "title": "Incomes",
               "path": "/app/income",
             },
             {
