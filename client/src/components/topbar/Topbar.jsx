@@ -1,10 +1,19 @@
 import React from "react";
+import ConAlert from "../ConstructionAlert";
 
 const Topbar = (props) => {
-  const conAlert = props.conAlert;
+  // const conAlert = conAlert(true);
   // const handleSearch = () => {};
+
+  var conAlert = () => {};
+
+  const getConAlertHandle = (alertHandle) => {
+    conAlert = alertHandle;
+  };
+
   return (
     <>
+      <ConAlert onMount={getConAlertHandle} />
       <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
         <button
           id="sidebarToggleTop"
@@ -22,7 +31,10 @@ const Topbar = (props) => {
               aria-label="Search"
               aria-describedby="basic-addon2"
             />
-            <div className="input-group-append" onClick={() => conAlert()}>
+            <div
+              className="input-group-append"
+              onClick={() => conAlert(true)}
+            >
               <button
                 className="btn btn-primary"
                 type="button"
@@ -43,7 +55,7 @@ const Topbar = (props) => {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              onClick={() => conAlert()}
+              onClick={() => conAlert(true)}
             >
               <i className="fas fa-search fa-fw"></i>
             </a>
@@ -64,7 +76,7 @@ const Topbar = (props) => {
                     <button
                       className="btn btn-primary"
                       type="button"
-                      onClick={() => conAlert()}
+                      onClick={() => conAlert(true)}
                     >
                       <i className="fas fa-search fa-sm"></i>
                     </button>
@@ -83,7 +95,7 @@ const Topbar = (props) => {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              onClick={() => conAlert()}
+              onClick={() => conAlert(true)}
             >
               <i className="fas fa-bell fa-fw"></i>
               <span className="badge badge-danger badge-counter">3+</span>
@@ -100,7 +112,7 @@ const Topbar = (props) => {
                   <div className="icon-circle bg-primary">
                     <i
                       className="fas fa-file-alt text-white"
-                      onClick={() => conAlert()}
+                      onClick={() => conAlert(true)}
                     >
                     </i>
                   </div>
@@ -153,7 +165,7 @@ const Topbar = (props) => {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              onClick={() => conAlert()}
+              onClick={() => conAlert(true)}
             >
               <i className="fas fa-envelope fa-fw"></i>
               <span className="badge badge-danger badge-counter">7</span>
@@ -161,6 +173,7 @@ const Topbar = (props) => {
             <div
               className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
               aria-labelledby="messagesDropdown"
+              onClick={() => conAlert(true)}
             >
               <h6 className="dropdown-header">
                 Message Center
