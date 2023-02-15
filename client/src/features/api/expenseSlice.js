@@ -5,8 +5,8 @@ export const expenseSlice = createApi({
   reducerPath: "expense",
   // all requests will have URLs starting with localhost or site
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001/",
-    // baseUrl: "https://wealthy-mi.herokuapp.com/"
+    // baseUrl: "http://localhost:3001/",
+    baseUrl: "https://wealthy-mi.herokuapp.com/",
   }),
   tagTypes: ["Expense"],
   endpoints: (builder) => ({
@@ -30,7 +30,7 @@ export const expenseSlice = createApi({
       invalidatesTags: ["Expense"],
     }),
     updateExpense: builder.mutation({
-      query: ({id, ...data}) => ({
+      query: ({ id, ...data }) => ({
         url: `expenses/${userId}/${id}`,
         method: "PUT",
         body: data,
