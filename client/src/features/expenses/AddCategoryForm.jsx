@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import { Collapse } from "react-bootstrap";
-import PageHeader from "../../components/page-content/PageHeader";
 import PageContent from "../../components/page-content/PageContent";
+import { useGetExpensesQuery } from "../api/expenseSlice";
 import {
-  useGetCategoriesQuery,
-  useDeleteCategoryMutation,
   useCreateCategoryMutation,
+  useDeleteCategoryMutation,
   useEditCategoryMutation,
+  useGetCategoriesQuery,
 } from "../api/categorySlice";
+
 function EditCategory({ setOpenEdit, categoryName }) {
   const [changeCategoryName, setChangeCategoryName] = useState([]);
-
+  const userId = localStorage.getItem("user");
   const [editCategory] = useEditCategoryMutation();
+
+  const { refetch } = useGetExpensesQuery(userId);
 
   async function updateCategory(e) {
     e.preventDefault();
     try {
       editCategory({ name: changeCategoryName, former: categoryName });
       setOpenEdit(false);
+      refetch();
     } catch (error) {
       console.log(error);
     }
@@ -82,10 +86,19 @@ function AddCategory() {
         className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
         onClick={() => setOpen(!open)}
       >
-        <i className="fa-solid fa-paperclip text-white-50"></i> Add Category
+        <i className="fa-solid fa-paperclip text-white-50"></i> Edit Categories
       </a>
     </>
   );
+
+  const categoryColors = [
+    "primary",
+    "warning",
+    "danger",
+    "info",
+    "dark",
+    "success",
+  ];
 
   return (
     <>
@@ -110,41 +123,59 @@ function AddCategory() {
                 />
                 <button
                   type="submit"
-                  className="btn btn-dark btn-sm mx-1 col-auto"
+                  className="btn btn-success text-white btn-sm mx-1 col-auto"
                 >
                   Submit
                 </button>
               </div>
             </div>
+            <div className="container mb-4">
+              <div className="row">
+                {!isLoading
+                  ? categories
+                    ? categories?.map((category, index) => {
+                      var buttonColor =
+                        categoryColors[index % categoryColors.length];
+                      return (
+                        <div
+                          key={index}
+                          className={`col bg-${buttonColor} border-${buttonColor} bg-gradient border rounded text-white mx-2 my-2 py-2 d-flex justify-content-center align-items-center w-auto`}
+                        >
+                          <div className="me-auto pe-1">
+                            {category}
+                          </div>
+                          <div
+                            className="btn text-white border-white rounded mx-1"
+                            onClick={() => {
+                              setEditCategory(category);
+                              setOpenEdit(!openEdit);
+                            }}
+                          >
+                            Edit
+                          </div>
+                          <div
+                            className="btn text-white border-white rounded mx-1 "
+                            onClick={() => handleDeleteCategory(category)}
+                          >
+                            Delete
+                          </div>
+                        </div>
+                      );
+                    })
+                    : <></>
+                  : <></>}
+              </div>
+            </div>
           </form>
         </Collapse>
-        <div>
-          <h3>Your Categories</h3>
-          <ul>
-            {categories?.map((category) => (
-              <li>
-                {category} -
-                <button onClick={() => handleDeleteCategory(category)}>
-                  delete
-                </button>
-                <button
-                  onClick={() => {
-                    setEditCategory(category);
-                    setOpenEdit(!openEdit);
-                  }}
-                >
-                  edit
-                </button>
-              </li>
-            ))}
-          </ul>
-          {openEdit ? (
+        {openEdit
+          ? (
             <EditCategory
               categoryName={editCategory}
               setOpenEdit={setOpenEdit}
             />
-          ) : null}
-        </div>
+          )
+          : null}
       </PageContent>
     </>
   );

@@ -4,12 +4,11 @@ import {
   useGetExpensesQuery,
 } from "../api/expenseSlice";
 import EditExpenseForm from "./EditExpenseForm";
-import DataTable from "react-data-table-component";
+import DataTable, { createTheme } from "react-data-table-component";
 import CsvDownloadButton from "react-json-to-csv";
 
 function ExpenseList({ userId }) {
   const [openEdit, setOpenEdit] = useState(false);
-  const [selectExpense, setSelectExpense] = useState(null);
 
   const {
     data: expenses,
@@ -62,48 +61,73 @@ function ExpenseList({ userId }) {
       sortable: true,
     },
     {
+      "name": "",
       name: "Amount",
       selector: (row) => `${formatCurrency(row.value)}`,
       sortable: true,
     },
     {
-      name: "",
-      cell: (row) => {
-        return <button onClick={() => handleDelete(row._id)}>Remove</button>;
-      },
-    },
-    {
-      name: "",
+      name: "Options",
       cell: (row) => {
         return (
-          <>
+          <div className="container justify-content-center">
             <button
-              onClick={() => {
-                setOpenEdit(!openEdit);
-                setSelectExpense(row);
-              }}
+              className="row-col btn btn-danger text-white btn-sm my-1 mx-1 "
+              onClick={() => handleDelete(row._id)}
             >
-              Edit
+              Remove
             </button>
-            {openEdit ? (
-              <EditExpenseForm
-                expense={selectExpense}
-                setOpenEdit={setOpenEdit}
-                openEdit={openEdit}
-              />
-            ) : null}
-          </>
+            <button
+              className="row-col btn btn-warning btn-sm text-white my-1 mx-1"
+              onClick={() => setOpenEdit(!openEdit)}
+            >
+              &nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;&nbsp;
+            </button>
+            {openEdit
+              ? (
+                <EditExpenseForm
+                  expense={row}
+                  setOpenEdit={setOpenEdit}
+                  openEdit={openEdit}
+                />
+              )
+              : null}
+          </div>
         );
       },
     },
   ];
 
+  const customTableStyles = {
+    headCells: {
+      style: {
+        color: "var(--bs-white)",
+        fontSize: "1rem",
+        background: "var(--bs-dark)",
+        // border: "1rem var(--bs-primary) solid",
+        borderRadius: "0.5rem",
+      },
+    },
+  };
+
   return (
     <div className="expenses-container">
-      <h2>Expenses</h2>
-      <CsvDownloadButton data={convertToCSV()} />
-      <button onClick={refetch}> Refresh </button>
-      <DataTable columns={columns} data={expenses} />
+      <DataTable
+        pagination
+        columns={columns}
+        data={expenses}
+        customStyles={customTableStyles}
+      />
+      <div className="d-flex">
+        <div className="me-auto">Download your data</div>
+        <CsvDownloadButton
+          className="btn btn-dark mx-1"
+          data={convertToCSV()}
+        />
+        <button className="btn btn-warning mx-1 text-white" onClick={refetch}>
+          Refresh Data
+        </button>
+      </div>
     </div>
   );
 }

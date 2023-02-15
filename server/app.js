@@ -12,11 +12,21 @@ var app = express();
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
+// app.use(logger("combined"));
 
+// Authorizationc contrlllers
 app.use("/users", require("./routes/users"));
 app.use("/auth", require("./routes/auth"));
+
+//Expens and income controllers
 app.use("/expenses", require("./routes/expenses"));
 app.use("/categories", require("./routes/categories"));
+app.use("/income", require("./routes/income"));
+
+// Asset Liability controllers
+app.use("/assets", require("./routes/asset"));
+app.use("/liabilities", require("./routes/liability"));
+app.use("/goals", require("./routes/goal"));
 
 // error handler
 app.use(function (err, req, res, next) {

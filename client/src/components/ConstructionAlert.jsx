@@ -7,8 +7,12 @@ function ConstructionAlert(props) {
 
   const hiddenStyle = "d-none pe-none user-select-none";
   const showStyle =
-    "alert alert-primary d-flex justify-content-center position-absolute start-50 top-50 translate-middle w-100 ";
+    "alert alert-primary d-flex justify-content-center position-fixed top-50 w-100 zindex-9999";
 
+  const hStyle = {};
+  const sStyle = {
+    zIndex: "9999",
+  };
   // wrap set show to update ref as well
   const updateShow = (val) => {
     showRef.current = val;
@@ -33,6 +37,7 @@ function ConstructionAlert(props) {
     <Fade in={show}>
       <div
         className={show ? showStyle : hiddenStyle}
+        style={show ? sStyle : hStyle}
       >
         This functionality is still under construction. Stay tuned for more!
       </div>
