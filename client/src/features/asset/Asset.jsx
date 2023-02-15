@@ -10,6 +10,7 @@ function Asset() {
   const initialState = {
     name: "",
     value: 0,
+    interest: 0,
   };
 
   const userId = localStorage.getItem("user");
@@ -42,32 +43,49 @@ function Asset() {
 
   return (
     <>
-      {assets
-        ? assets.map((asset, index) => (
-          <div key={index}>
-            <div>
-              <div>{asset.name}: {asset.value}</div>
-              <div
-                onClick={() => handleDelete(asset._id)}
-                className="btn btn-dark btn-sm"
-              >
-                Delete
+      <div>
+        <div className="row">
+          <div className="col-4 h5 text-dark">Title</div>
+          <div className="col-4 h5 text-dark">Value</div>
+          <div className="col-4 h5 text-dark">Options</div>
+        </div>
+        {assets
+          ? assets.map((asset, index) => (
+            <div key={index}>
+              <div className="row">
+                <div className="col-4">
+                  {asset.name}
+                </div>
+                <div className="col-4">
+                  {asset.value.toLocaleString("en-us", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                </div>
+                <div className="col-4">
+                  <div
+                    onClick={() => handleDelete(asset._id)}
+                    className="btn btn-dark btn-sm mx-1"
+                  >
+                    Delete
+                  </div>
+                  <div
+                    className="btn btn-warning btn-sm mx-1"
+                    onClick={() => setOpenEdit(!openEdit)}
+                  >
+                    Edit
+                  </div>
+                </div>
               </div>
-              <div
-                className="btn btn-warning btn-sm"
-                onClick={() => setOpenEdit(!openEdit)}
-              >
-                Edit
-              </div>
+
+              {openEdit
+                ? <EditAssetModal asset={asset} setOpenEdit={setOpenEdit} />
+                : null}
             </div>
-            {openEdit
-              ? <EditAssetModal asset={asset} setOpenEdit={setOpenEdit} />
-              : null}
-          </div>
-        ))
-        : <></>}
-      <form onSubmit={handleSubmit}>
-        <div className="container">
+          ))
+          : <></>}
+        <form onSubmit={handleSubmit}>
+          <div className="row h5 text-dark">Add a New Asset</div>
           <div className="row">
             <input
               className="form-control col"
@@ -83,19 +101,31 @@ function Asset() {
               placeholder="Value"
               type="text"
               name="value"
-              value={Number(formData.value)}
+              value={formData.value.toLocaleString("en-us", {
+                style: "currency",
+                currency: "USD",
+              })}
               onChange={handleChange}
             >
             </input>
+            <input
+              className="form-control col text-dark"
+              placeholder="annual returns"
+              type="text"
+              name="interest"
+              value={`${formData.interest} %`}
+              onChange={handleChange}
+            />
             <button
-              className="btn btn-success text-white btn-sm mx-1 col-auto"
+              className="btn btn-success text-white btn-sm mx-1 col-auto "
               type="submit"
             >
-              Submit
+              Add an Asset
             </button>
+            <div className="col-0 col-lg-6">&nbsp;</div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </>
   );
 }
