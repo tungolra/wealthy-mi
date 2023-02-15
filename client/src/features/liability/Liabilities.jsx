@@ -43,7 +43,6 @@ function Income() {
     }
   }
 
-  console.log(liabilities);
   return (
     <>
       {isSuccess
