@@ -16,7 +16,7 @@ export const incomeSlice = createApi({
     }),
     createIncome: builder.mutation({
       query: (data) => ({
-        url: `income/create/${userId}`,
+        url: `income/${userId}`,
         method: "POST",
         body: data,
       }),
