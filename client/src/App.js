@@ -9,9 +9,9 @@ import Expenses from "./features/expenses/Expenses";
 import Income from "./features/income/Income";
 import Goal from "./features/goals/Goals";
 import Dashboard from "./features/dashboard/Dashboard";
-import Asset from "./features/asset/Asset";
 import Liability from "./features/liability/Liabilities";
 import Account from "./features/my-accounts/Accounts";
+import AssetLiabilityView from "./features/asset-liability/Asset-Liability";
 
 function App() {
   let showConAlert = () => {};
@@ -31,7 +31,7 @@ function App() {
         <Route path="income" element={<Income />}></Route>
         <Route path="goal" element={<Goal />}></Route>
         <Route path="dashboard" element={<Dashboard />}></Route>
-        <Route path="asset-liability" element={<Asset />}></Route>
+        <Route path="asset-liability" element={<AssetLiabilityView />}></Route>
         <Route path="liability" element={<Liability />}></Route>
         <Route path="*" ErrorHandling></Route>
       </Routes>
