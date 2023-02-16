@@ -62,7 +62,7 @@ export default function Guide() {
   );
 
   const accordian = (def, imp, tips, idx, ref) => (
-    <Accordion defaultActiveKey="0">
+    <Accordion key={idx} defaultActiveKey="0">
       <Accordion.Item eventKey="0">
         <Accordion.Header>Definition</Accordion.Header>
         <Accordion.Body>
@@ -97,7 +97,12 @@ export default function Guide() {
   );
 
   const features = (feat, def, imp, tips, link, style, idx, ref) => (
-    <Col xs={12} md={6} style={{ padding: "calc(var(--bs-gutter-x) * 0.5)" }}>
+    <Col
+      key={idx}
+      xs={12}
+      md={6}
+      style={{ padding: "calc(var(--bs-gutter-x) * 0.5)" }}
+    >
       <Card>
         <Card.Body className={style}>
           <Card.Title className="text-white">{feat}</Card.Title>
