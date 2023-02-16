@@ -1,16 +1,22 @@
-import React from "react";
+import Reacti from "react";
 import ConAlert from "../ConstructionAlert";
+import { logout } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Topbar = (props) => {
   // const conAlert = conAlert(true);
   // const handleSearch = () => {};
-
+  const dispatch = useDispatch();
   var conAlert = () => {};
 
   const getConAlertHandle = (alertHandle) => {
     conAlert = alertHandle;
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
     <>
       <ConAlert onMount={getConAlertHandle} />
@@ -305,6 +311,14 @@ const Topbar = (props) => {
             </div>
           </li>
         </ul>
+        <div>
+          <Link
+            className="btn btn-primary me-2 me-lg-4"
+            onClick={() => handleLogout()}
+          >
+            Logout
+          </Link>
+        </div>
       </nav>
     </>
   );
