@@ -2,7 +2,11 @@
 
 ### Wealthy You
 
-<!-- <a target="_blank">[Launch Website](<insert website URL>)</a> -->
+
+
+![](https://raw.githubusercontent.com/ssjkhan/wealthy-mi/main/images/Jan18-Capture1.gif)
+
+
 
 ![](https://raw.githubusercontent.com/ssjkhan/wealthy-mi/main/images/Jan18-Capture1.gif)
 
