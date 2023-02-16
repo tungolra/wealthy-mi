@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const backendURL = "https://wealthy-mi.herokuapp.com/";
-// const backendURL = "http://localhost:3001";
+// const backendURL = "http://localhost:3001/";
 
 export const userLogin = createAsyncThunk(
   "auth/login",
@@ -48,7 +48,7 @@ export const registerUser = createAsyncThunk(
       };
 
       await axios.post(
-        `${backendURL}/auth/register`,
+        `${backendURL}auth/register`,
         { firstname, lastname, username, password },
         config,
       );

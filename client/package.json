@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "https://wealthy-mi.herokuapp.com/",
   "scripts": {
     "gulp": "gulp --gulpfile ./src/utils/gulpfile.js",
     "scss-dev": "gulp --gulpfile ./src/utils/gulpfile.js dev",
@@ -21,10 +21,18 @@
     "@testing-library/user-event": "^14.4.3",
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
+    "chart.js": "^4.2.0",
+    "del": "^6.1.1",
     "dotenv": "^16.0.3",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^5.1.0",
+    "gulp-util": "^3.0.8",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-data-table-component": "^7.5.3",
     "react-dom": "^18.2.0",
+    "react-json-to-csv": "^1.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
@@ -32,12 +40,8 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
-    "web-vitals": "^2.1.4",
-    "del": "^6.1.1",
-    "gulp": "^4.0.2",
-    "gulp-sass": "^5.1.0",
-    "gulp-util": "^3.0.8",
-    "sass": "^1.57.1"
+    "sass": "^1.57.1",
+    "web-vitals": "^2.1.4"
   },
   "eslintConfig": {
     "extends": [

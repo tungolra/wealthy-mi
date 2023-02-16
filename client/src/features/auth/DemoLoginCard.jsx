@@ -1,11 +1,12 @@
-import React, {} from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { userLogin } from "./authActions";
-import { Link, useNavigate } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 
 export default function DemoLoginCard(props) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const autoLogin = {
     username: "demo@mail.com",
     password: "12345",
@@ -14,7 +15,6 @@ export default function DemoLoginCard(props) {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(userLogin(autoLogin));
-    navigate("/app/demo");
   }
 
   return (
@@ -61,6 +61,7 @@ export default function DemoLoginCard(props) {
           <div className="text-center">
             <div>Don't have an account?</div>
             <Link
+              to="/app"
               className="small"
               onClick={() => {
                 props.resetForm();
