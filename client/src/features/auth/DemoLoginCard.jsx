@@ -34,7 +34,8 @@ export default function DemoLoginCard(props) {
                 id="username"
                 name="username"
                 value={autoLogin.username}
-              ></input>
+              >
+              </input>
             </div>
             <div className="form-group">
               <input
@@ -45,7 +46,8 @@ export default function DemoLoginCard(props) {
                 id="password"
                 name="password"
                 value={autoLogin.password}
-              ></input>
+              >
+              </input>
             </div>
             <div className="text-center mb-5">
               <button
@@ -59,6 +61,7 @@ export default function DemoLoginCard(props) {
           <div className="text-center">
             <div>Don't have an account?</div>
             <Link
+              to="/app"
               className="small"
               onClick={() => {
                 props.resetForm();
