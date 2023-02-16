@@ -13,8 +13,8 @@ export default function Auth() {
   const initialState = {
     firstname: "",
     lastname: "",
-    username: "",
-    password: "",
+    username: "demo@mail.com",
+    password: "12345",
     confirmpass: "",
   };
   const dispatch = useDispatch();
