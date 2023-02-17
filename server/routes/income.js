@@ -6,7 +6,7 @@ const incomeCtrl = require("../controllers/income");
 //   console.log("This is incomes");
 //   next();
 // });
-router.post("/create/:id", incomeCtrl.create);
+router.post("/:id", incomeCtrl.create);
 router.put("/:userId/:id", incomeCtrl.edit);
 router.get("/:id", incomeCtrl.index);
 router.delete("/:id", incomeCtrl.delete);

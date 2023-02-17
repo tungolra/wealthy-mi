@@ -8,13 +8,13 @@ import DemoLoginCard from "./DemoLoginCard";
 import SignUpCard from "./SignUpCard";
 
 export default function Auth() {
-  const currentUser = useSelector((state) => state.auth);
+  const currentUser = useSelector((state) => state.auth.userInfo);
 
   const initialState = {
     firstname: "",
     lastname: "",
-    username: "",
-    password: "",
+    username: "demo@mail.com",
+    password: "12345",
     confirmpass: "",
   };
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ export default function Auth() {
 
   return (
     <>
-      {currentUser.userInfo
+      {currentUser
         ? <Navigate to="/app/demo" />
         : (
           <div className="wrapper" style={backGroundStyle}>
@@ -79,7 +79,7 @@ export default function Auth() {
                         )
                         : (
                           //<DemoLoginCard
-                            <LoginCard
+                          <LoginCard
                             data={data}
                             setData={setData}
                             handleChange={handleChange}

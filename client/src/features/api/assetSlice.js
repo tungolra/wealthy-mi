@@ -5,8 +5,8 @@ export const assetSlice = createApi({
   reducerPath: "assets",
   // all requests will have URLs starting with localhost or site
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001/",
-    // baseUrl: "https://wealthy-mi.herokuapp.com/"
+    // baseUrl: "http://localhost:3001/",
+    baseUrl: "https://wealthy-mi.herokuapp.com/",
   }),
   tagTypes: ["Asset"],
   endpoints: (builder) => ({

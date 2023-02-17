@@ -6,23 +6,6 @@ import NavItem from "./NavItem";
 import { Link } from "react-router-dom";
 
 export default function Sidebar(props) {
-  const sampleDropDown = {
-    "title": "Sample Drop Down",
-    "path": "#!",
-    "iconClass": "fas fa-fw fa-cog",
-    "subTitle": "Sample Pages",
-    "subNavItems": [
-      {
-        "title": "Sample Page 1",
-        "path": "",
-      },
-      {
-        "title": "Sample Page 2",
-        "path": "",
-      },
-    ],
-    "conAlert": props.conAlert,
-  };
   /*
     To add construciton alert to any feature, add the following
     onClick = {()=> props.conAlert()}
@@ -43,27 +26,39 @@ export default function Sidebar(props) {
         <Link
           className="nav-link"
           to="/app/dashboard"
-          onClick={() => props.conAlert(true)}
         >
           <i className="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </Link>
       </li>
 
-      <li
-        key="Expenses"
-        className="nav-item"
-      >
-        <Link className="nav-link" href="#" to="/app/expense">
-          <i className="fas fa-layer-group"></i>
-          <span>My Expenses</span>
-        </Link>
-      </li>
+      <NavItem
+        {...{
+          "title": "My Accounts",
+          "path": "#!",
+          "iconClass": "fas fa-layer-group",
+          "subTitle": "Manage My Accounts",
+          "subNavItems": [
+            {
+              "title": "Incomes",
+              "path": "/app/income",
+            },
+            {
+              "title": "Expense Tracker",
+              "path": "/app/expense",
+            },
+            {
+              "title": "Assets and Liabilities",
+              "path": "/app/asset-liability",
+            },
+          ],
+        }}
+      />
       <li
         key="Goals"
         className="nav-item"
       >
-        <a className="nav-link" href="#" onClick={() => props.conAlert(true)}>
+        <a className="nav-link" href="#" onClick={() => props.conAlert()}>
           <i className="fas fa-bullseye"></i>
           <span>My Goals</span>
         </a>
@@ -85,8 +80,6 @@ export default function Sidebar(props) {
           <span>Guide</span>
         </Link>
       </li>
-
-      <NavItem {...sampleDropDown} />
     </Accordion>
   );
 }

@@ -138,6 +138,7 @@ function AddCategory() {
                         categoryColors[index % categoryColors.length];
                       return (
                         <div
+                          key={index}
                           className={`col bg-${buttonColor} border-${buttonColor} bg-gradient border rounded text-white mx-2 my-2 py-2 d-flex justify-content-center align-items-center w-auto`}
                         >
                           <div className="me-auto pe-1">

@@ -1,8 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// const backendURL = "https://wealthy-mi.herokuapp.com/";
-const backendURL = "http://localhost:3001/";
+const backendURL = "https://wealthy-mi.herokuapp.com/";
+// const backendURL = "http://localhost:3001/";
 
 export const userLogin = createAsyncThunk(
   "auth/login",
@@ -22,8 +22,8 @@ export const userLogin = createAsyncThunk(
       );
 
       // store user's token in local storage
-      localStorage.setItem('userToken', data.token)
-      localStorage.setItem('user', data.user._id)
+      localStorage.setItem("userToken", data.token);
+      localStorage.setItem("user", data.user._id);
 
       return data;
     } catch (error) {

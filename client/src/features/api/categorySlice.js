@@ -5,8 +5,8 @@ export const categorySlice = createApi({
   reducerPath: "category",
   // all requests will have URLs starting with localhost or site
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001/",
-    // baseUrl: "https://wealthy-mi.herokuapp.com/"
+    // baseUrl: "http://localhost:3001/",
+    baseUrl: "https://wealthy-mi.herokuapp.com/",
   }),
   tagTypes: ["Category"],
   endpoints: (builder) => ({

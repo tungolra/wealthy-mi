@@ -5,7 +5,6 @@ import Expenses from "../expenses/Expenses";
 import Income from "../income/Income";
 import Goal from "../goals/Goals";
 import Dashboard from "../dashboard/Dashboard";
-import Asset from "../asset/Asset";
 import Liability from "../liability/Liabilities";
 
 const TestRoutes = () => {
@@ -16,7 +15,6 @@ const TestRoutes = () => {
       <Route path="income" element={<Income />}></Route>
       <Route path="goal" element={<Goal />}></Route>
       <Route path="dashboard" element={<Dashboard />}></Route>
-      <Route path="asset" element={<Asset />}></Route>
       <Route path="liability" element={<Liability />}></Route>
     </Routes>
   );

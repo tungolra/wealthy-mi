@@ -17,7 +17,6 @@ export default function EditAssetModal({ asset, setOpenEdit }) {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      console.log(formData);
       await updateAsset(formData);
       setOpenEdit(false);
     } catch (error) {

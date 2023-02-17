@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "https://wealthy-mi.herokuapp.com/",
   "scripts": {
     "gulp": "gulp --gulpfile ./src/utils/gulpfile.js",
     "scss-dev": "gulp --gulpfile ./src/utils/gulpfile.js dev",

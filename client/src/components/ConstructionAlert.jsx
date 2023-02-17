@@ -7,7 +7,7 @@ function ConstructionAlert(props) {
 
   const hiddenStyle = "d-none pe-none user-select-none";
   const showStyle =
-    "alert alert-primary d-flex justify-content-center position-absolute  top-50 w-100 zindex-9999";
+    "alert alert-primary d-flex justify-content-center position-fixed top-50 w-100 zindex-9999";
 
   const hStyle = {};
   const sStyle = {

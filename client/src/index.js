@@ -19,11 +19,10 @@ root.render(
         <Route path="/test/*" element={<Test />} />
         <Route path="app/auth" element={<Auth />} />
         <Route path="app/*" element={<App />} />
-        <Route path="/" element={<App />} />
         <Route path="*" element={<ErrorHandler />} />
       </Routes>
     </BrowserRouter>
-  </Provider>
+  </Provider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

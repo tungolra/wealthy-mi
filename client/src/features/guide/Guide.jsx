@@ -12,7 +12,6 @@ import Popover from "react-bootstrap/Popover";
 import { guideDetails, introDetails } from "./guideContent";
 
 export default function Guide() {
-  
   const popover = (obj, int) => (
     <Popover id="popover-basic">
       <Popover.Body>
@@ -31,7 +30,10 @@ export default function Guide() {
         placement="bottom"
         overlay={popover(introDetails.income, 1)}
       >
-        <Button className="text-white bg-secondary" variant="success">
+        <Button
+          className="btn-dark"
+          variant="success"
+        >
           Income
         </Button>
       </OverlayTrigger>
@@ -40,7 +42,10 @@ export default function Guide() {
         placement="bottom"
         overlay={popover(introDetails.savings, 2)}
       >
-        <Button className="text-white bg-secondary" variant="success">
+        <Button
+          className="btn-dark"
+          variant="success"
+        >
           Savings
         </Button>
       </OverlayTrigger>
@@ -57,7 +62,7 @@ export default function Guide() {
   );
 
   const accordian = (def, imp, tips, idx, ref) => (
-    <Accordion defaultActiveKey="0">
+    <Accordion key={idx} defaultActiveKey="0">
       <Accordion.Item eventKey="0">
         <Accordion.Header>Definition</Accordion.Header>
         <Accordion.Body>
@@ -80,7 +85,8 @@ export default function Guide() {
             {tips?.map((t, idx) => (
               <ListGroup.Item>
                 <a target="_blank" href={t}>
-                  Article #{idx + 1}{" "}
+                  Article #{idx + 1}
+                  {" "}
                 </a>
               </ListGroup.Item>
             ))}
@@ -91,17 +97,23 @@ export default function Guide() {
   );
 
   const features = (feat, def, imp, tips, link, style, idx, ref) => (
-    <Col xs={12} md={6} style={{ padding: "calc(var(--bs-gutter-x) * 0.5)" }}>
+    <Col
+      key={idx}
+      xs={12}
+      md={6}
+      style={{ padding: "calc(var(--bs-gutter-x) * 0.5)" }}
+    >
       <Card>
         <Card.Body className={style}>
           <Card.Title className="text-white">{feat}</Card.Title>
           {accordian(def, imp, tips, idx, ref)}
           <Link to={link.to}>
             <Button
-              className="bg-secondary"
-              variant="primary"
+              className="btn-dark"
               style={{ marginTop: "var(--bs-card-title-spacer-y)" }}
-            >{`View your ${link.dir}`}</Button>
+            >
+              {`View your ${link.dir}`}
+            </Button>
           </Link>
         </Card.Body>
       </Card>

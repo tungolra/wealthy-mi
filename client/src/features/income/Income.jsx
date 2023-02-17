@@ -4,6 +4,7 @@ import {
   useGetIncomeQuery,
 } from "../api/incomeSlice";
 import { useState } from "react";
+import Page from "../../components/page/Page";
 import EditIncomeModal from "./EditIncome";
 
 function Income() {
@@ -42,62 +43,64 @@ function Income() {
   }
   return (
     <>
-      {incomes
-        ? incomes.map((income) => (
-          <div>
-            <div>{income.name} {income.period} {income.value}</div>
-            <div
-              className="btn btn-dark"
-              onClick={() => handleDelete(income._id)}
-            >
-              Delete
+      <Page>
+        {incomes
+          ? incomes.map((income, index) => (
+            <div key={index}>
+              <div>{income.name} {income.period} {income.value}</div>
+              <div
+                className="btn btn-dark"
+                onClick={() => handleDelete(income._id)}
+              >
+                Delete
+              </div>
+              <div
+                className="btn btn-warning"
+                onClick={() => setOpenEdit(!openEdit)}
+              >
+                Edit
+              </div>
+              {openEdit
+                ? (
+                  <EditIncomeModal
+                    income={income}
+                    setOpenEdit={setOpenEdit}
+                    openEdit={openEdit}
+                  />
+                )
+                : null}
             </div>
-            <div
-              className="btn btn-warning"
-              onClick={() => setOpenEdit(!openEdit)}
-            >
-              Edit
+          ))
+          : <></>}
+        <form onSubmit={handleSubmit}>
+          <div className="container">
+            <div className="row">
+              <input
+                className="form-control col"
+                placeholder="Income Source"
+                name="name"
+                type="text"
+                value={formData.name}
+                onChange={handleChange}
+              />
+              <input
+                className="form-control col"
+                placeholder=""
+                name="value"
+                type="text"
+                value={formData.value}
+                onChange={handleChange}
+              />
+              <button
+                className="btn btn-success text-white btn-sm mx-1 col-auto"
+                type="submit"
+              >
+                Submit
+              </button>
             </div>
-            {openEdit
-              ? (
-                <EditIncomeModal
-                  income={income}
-                  setOpenEdit={setOpenEdit}
-                  openEdit={openEdit}
-                />
-              )
-              : null}
           </div>
-        ))
-        : <></>}
-      <form onSubmit={handleSubmit}>
-        <div className="container">
-          <div className="row">
-            <input
-              className="form-control col"
-              placeholder="Income Source"
-              name="name"
-              type="text"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            <input
-              className="form-control col"
-              placeholder=""
-              name="value"
-              type="text"
-              value={formData.value}
-              onChange={handleChange}
-            />
-            <button
-              className="btn btn-success text-white btn-sm mx-1 col-auto"
-              type="submit"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </Page>
     </>
   );
 }

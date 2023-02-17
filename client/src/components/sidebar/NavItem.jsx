@@ -29,7 +29,7 @@ const NavItem = (props) => {
           href="#"
           onClick={useAccordionButton(eventKey)}
         >
-          <i className="fas fa-ellipsis-vertical"></i>
+          <i className={props.iconClass}></i>
           <span>{props.title}</span>
         </a>
         <Accordion.Collapse eventKey={eventKey}>
