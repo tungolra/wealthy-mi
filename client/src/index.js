@@ -16,26 +16,10 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/test/*"
-          element={<Test />}
-        />
-        <Route
-          path="app/auth"
-          element={<Auth />}
-        />
-        <Route
-          path="app/*"
-          element={<App />}
-        />
-        <Route
-          path="/"
-          element={<App />}
-        />
-        <Route
-          path="*"
-          element={<ErrorHandler />}
-        />
+        <Route path="/test/*" element={<Test />} />
+        <Route path="app/auth" element={<Auth />} />
+        <Route path="app/*" element={<App />} />
+        <Route path="*" element={<ErrorHandler />} />
       </Routes>
     </BrowserRouter>
   </Provider>,
